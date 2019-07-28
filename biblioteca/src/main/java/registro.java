@@ -21,7 +21,6 @@ public class registro {
         this.tex = tex;
         
     }
-    
     /*yefer
     Verifica si puede prestar libros el estudiante si si luego busca la 
     existencia del libro que se quiere si este existe entonces invia por 
@@ -85,5 +84,9 @@ public class registro {
         presta.estudiante.limite++;
         presta.libro.cantidad--;
         register.add(presta);
+    }
+    
+    public void devolucion(){
+        
     }
 }
