@@ -100,7 +100,7 @@ public class Leer_txt {
             
             for(int i=0; i<librosRecuperados.size(); i++){
                 datos.libros.add(librosRecuperados.get(i)); 
-                System.out.println(i);
+
             }
             
             ObjectInputStream cargarEstudiantes = new ObjectInputStream(new FileInputStream("estudiantes.txt"));
@@ -109,7 +109,7 @@ public class Leer_txt {
             
             for(int i=0; i<estudiantesRecuperados.size(); i++){
                 datos.estudiantes.add(estudiantesRecuperados.get(i));
-                System.out.println(i);
+
             }
             
         }catch(Exception e){
