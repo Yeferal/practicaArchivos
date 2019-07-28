@@ -1,9 +1,6 @@
 
 import java.io.Serializable;
 
-
-
-
 /**
  *
  * @author yefer

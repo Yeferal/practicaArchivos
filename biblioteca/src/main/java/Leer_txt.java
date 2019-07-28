@@ -1,6 +1,7 @@
 
 
 import java.io.*;
+import java.util.ArrayList;
 /**
  *
  * @author yefer
@@ -15,6 +16,7 @@ public class Leer_txt {
         leer();
         
     }
+    
     public void leer(){
         
         try {
@@ -71,6 +73,51 @@ public class Leer_txt {
     }
     public void datosPrestamo(String codigo, String carnet, String fecha){
     }
+    
+    
+    public void GuardarObjetos(){
+        
+        try{
+            ObjectOutputStream guardarLibros = new ObjectOutputStream(new FileOutputStream("libros.txt"));
+            guardarLibros.writeObject(datos.libros);
+            guardarLibros.close();
+            
+            ObjectOutputStream guardarEstudiantes = new ObjectOutputStream(new FileOutputStream("estudiantes.txt"));
+            guardarEstudiantes.writeObject(datos.estudiantes);
+            guardarEstudiantes.close();
+
+        }catch(Exception e){
+            
+        }
+    }
+    
+    
+    public void CargarObjetos(){
+        try{
+            ObjectInputStream cargarLibros = new ObjectInputStream(new FileInputStream("libros.txt"));
+            ArrayList<Libro> librosRecuperados = (ArrayList<Libro>) cargarLibros.readObject();
+            cargarLibros.close();
+            
+            for(int i=0; i<librosRecuperados.size(); i++){
+                datos.libros.add(librosRecuperados.get(i)); 
+                System.out.println(i);
+            }
+            
+            ObjectInputStream cargarEstudiantes = new ObjectInputStream(new FileInputStream("estudiantes.txt"));
+            ArrayList<Estudiante> estudiantesRecuperados = (ArrayList<Estudiante>) cargarEstudiantes.readObject();
+            cargarEstudiantes.close();
+            
+            for(int i=0; i<estudiantesRecuperados.size(); i++){
+                datos.estudiantes.add(estudiantesRecuperados.get(i));
+                System.out.println(i);
+            }
+            
+        }catch(Exception e){
+        
+        }
+    }
+         
+    /**
     public void generarArchLibros(){
         
         for (int i = 0; i < datos.libros.size(); i++) {
@@ -141,4 +188,5 @@ public class Leer_txt {
             }
         }
     }
+    **/
 }

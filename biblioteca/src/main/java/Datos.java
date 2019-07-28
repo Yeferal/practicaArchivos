@@ -30,4 +30,10 @@ public class Datos {
             System.out.println(libros.get(i).titulo);  
         }
     }
+    
+    public void verEstudiantes(){
+        for(int i=0; i<estudiantes.size(); i++){
+            System.out.println(estudiantes.get(i).toString());
+        }
+    }
 }
