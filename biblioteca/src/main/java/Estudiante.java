@@ -52,6 +52,15 @@ public class Estudiante {
     public void setLimite(int librosPrestados){
         this.limite=librosPrestados;
     }
+    public boolean verificacion(){
+        if(limite<3){
+            return false;
+        }else{
+            return true;
+        }
+        
+        
+    }
     public String toString(){
         String mensaje = "Nombre: "+nombre+" Carnet: "+carnet+"\nCarrera: "+carrera;
         return mensaje;
