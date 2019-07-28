@@ -13,7 +13,7 @@ public class registro {
     String code;
     Prestamo presta;
     Leer_txt tex;
-    ArrayList<Prestamo> register= new ArrayList<Prestamo>();
+    
     
     /*
     constructor
@@ -84,15 +84,15 @@ public class registro {
         presta= new Prestamo(tex.datos.estudiantes.get(posocion), tex.datos.libros.get(libro), "");
         presta.presto();
         
-        register.add(presta);
+        tex.datos.register.add(presta);
     }
     
     public void devolucion(){
         
     }
     public boolean buscarPrestamos(int carne, String code){
-        for (int i = 0; i < register.size(); i++) {
-            if(register.get(i).estudiante.carnet==carne || register.get(i).libro.codigo==code || register.get(i).estado){
+        for (int i = 0; i < tex.datos.register.size(); i++) {
+            if(tex.datos.register.get(i).estudiante.carnet==carne && tex.datos.register.get(i).libro.codigo==code && tex.datos.register.get(i).estado){
                 //agregamos al pago y cambia los prestamos del mismo
                 numeroPago=i;
                 return true;
@@ -104,7 +104,7 @@ public class registro {
     public void pagar(int carne, String code){
         if(buscarPrestamos(carne, code)){
             //Se confirma el regreso del libro
-            register.get(numeroPago).regreso();
+            tex.datos.register.get(numeroPago).regreso();
         }else{
             System.out.println("NO existe el registro para poder pagar");
         }

@@ -9,6 +9,7 @@ public class Datos {
     
     ArrayList<Estudiante> estudiantes =new ArrayList<Estudiante>();
     ArrayList<Libro> libros =new ArrayList<Libro>();
+    ArrayList<Prestamo> register= new ArrayList<Prestamo>();
     
     public Datos (){
         
