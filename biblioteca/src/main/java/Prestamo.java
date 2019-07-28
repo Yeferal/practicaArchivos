@@ -13,6 +13,7 @@ public class Prestamo {
     String fechaDevolucion;
     int montoAPagar;
     
+    
     public Prestamo(Estudiante estudiante, Libro libro, String fechaPrestamo){
         this.estudiante = estudiante;
         this.libro = libro;
