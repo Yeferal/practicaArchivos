@@ -1,11 +1,14 @@
 
+import java.io.Serializable;
+
+
 
 
 /**
  *
  * @author yefer
  */
-public class Libro {
+public class Libro implements Serializable{
     
     String titulo;
     String autor;

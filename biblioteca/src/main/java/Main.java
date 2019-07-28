@@ -8,5 +8,6 @@ public class Main {
         //DateFormat formato = new SimpleDateFormat("YYYY-MM-dd");
         //System.out.println(formato.format(new Date()));
         Leer_txt tx = new Leer_txt();
+        tx.generarArchLibros();
     }
 }

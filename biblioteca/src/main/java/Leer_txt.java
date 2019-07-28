@@ -21,24 +21,19 @@ public class Leer_txt {
             
             for (int i = 0; i < 60; i++) {
                 
-                //System.out.println(br.readLine());
-                //tipo(br.readLine());
                         switch (br.readLine()) {
             case "LIBRO":
                 libro();
-                datoslibro(br.readLine(),br.readLine(),br.readLine(),br.readLine());
-                             
+                datoslibro(br.readLine(),br.readLine(),br.readLine(),br.readLine());                            
                 break;
             case "ESTUDIANTE":
                 estudiante();
-                datosEstudiante(br.readLine(),br.readLine(),br.readLine());
-                
+                datosEstudiante(br.readLine(),br.readLine(),br.readLine());  
                 break;
             case "PRESTAMO":
                 prestamo();
                 datosPrestamo(br.readLine(),br.readLine(),br.readLine());
                 break;
-        //System.out.println("no es nada");
             default:
                
         }              
@@ -67,16 +62,81 @@ public class Leer_txt {
     
     public void datoslibro(String title, String autor, String codigo, String candidad){
 
-        datos.nuevoLibro(title.substring(7), autor.substring(6), codigo.substring(7), Integer.parseInt(candidad.substring(9)));
-        
+        datos.nuevoLibro(title.substring(7), autor.substring(6), codigo.substring(7), Integer.parseInt(candidad.substring(9)));   
     }
     public void datosEstudiante(String carnet, String nombre, String carrera){
-
-
           datos.nuevoEstudiante(nombre.substring(7),Integer.parseInt(carnet.substring(7)), Integer.parseInt(carrera.substring(8)), " null");
     }
     public void datosPrestamo(String codigo, String carnet, String fecha){
-
     }
-    
+    public void generarArchLibros(){
+        
+        for (int i = 0; i < datos.libros.size(); i++) {
+            String nombreL="libros/"+datos.libros.get(i).getTitulo()+".bin";
+            File fichero= new File(nombreL);
+            FileOutputStream fil;
+            ObjectOutputStream dat;
+            try {
+                fil = new FileOutputStream(fichero);
+                dat = new ObjectOutputStream(fil);
+                dat.writeObject(datos.libros.get(i));
+                dat.close();
+                
+            } catch (Exception e) {
+                System.out.println("Error");
+            }
+        }
+    }
+    public void leerArchLibros(){
+        for (int i = 0; i < datos.libros.size(); i++) {
+            String nombreL="libros/"+datos.libros.get(i).getTitulo()+".bin";
+            File fichero= new File(nombreL);
+            FileOutputStream fil;
+            ObjectOutputStream dat;
+            try {
+                fil = new FileOutputStream(fichero);
+                dat = new ObjectOutputStream(fil);
+                dat.writeObject(datos.libros.get(i));
+                dat.close();
+                
+            } catch (Exception e) {
+                System.out.println("Error");
+            }
+        }
+    }
+        public void generarArchEstudiantes(){
+        for (int i = 0; i < datos.estudiantes.size(); i++) {
+            String nombreL="estudiantes/"+datos.estudiantes.get(i).carnet+".bin";
+            File fichero= new File(nombreL);
+            FileOutputStream fil;
+            ObjectOutputStream dat;
+            try {
+                fil = new FileOutputStream(fichero);
+                dat = new ObjectOutputStream(fil);
+                dat.writeObject(datos.estudiantes.get(i));
+                dat.close();
+                
+            } catch (Exception e) {
+                System.out.println("Error");
+            }
+        }
+    }
+        
+    public void generarArchPrestamos(){
+        for (int i = 0; i < datos.estudiantes.size(); i++) {
+            String nombreL="prestamos/"+datos.estudiantes.get(i).carnet+".bin";
+            File fichero= new File(nombreL);
+            FileOutputStream fil;
+            ObjectOutputStream dat;
+            try {
+                fil = new FileOutputStream(fichero);
+                dat = new ObjectOutputStream(fil);
+                dat.writeObject(datos.estudiantes.get(i));
+                dat.close();
+                
+            } catch (Exception e) {
+                System.out.println("Error");
+            }
+        }
+    }
 }
