@@ -9,6 +9,7 @@ public class Prestamo {
     
     Estudiante estudiante;
     Libro libro;
+    boolean estado;
     String fechaPrestamo;
     String fechaDevolucion;
     int montoAPagar;
@@ -58,5 +59,15 @@ public class Prestamo {
 
     public void setMontoAPagar(int montoAPagar) {
         this.montoAPagar = montoAPagar;
+    }
+    public void presto(){
+        estado=true;
+        estudiante.limite++;
+        libro.cantidad--;
+    }
+    public void regreso(){
+        estado= false;
+        estudiante.limite--;
+        libro.cantidad++;
     }
 }

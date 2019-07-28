@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class registro {
     
     int codigos;
+    int numeroPago;
     String code;
     Prestamo presta;
     Leer_txt tex;
@@ -81,12 +82,32 @@ public class registro {
     */
     public void registro(int posocion,int libro){
         presta= new Prestamo(tex.datos.estudiantes.get(posocion), tex.datos.libros.get(libro), "");
-        presta.estudiante.limite++;
-        presta.libro.cantidad--;
+        presta.presto();
+        
         register.add(presta);
     }
     
     public void devolucion(){
         
     }
+    public boolean buscarPrestamos(int carne, String code){
+        for (int i = 0; i < register.size(); i++) {
+            if(register.get(i).estudiante.carnet==carne || register.get(i).libro.codigo==code || register.get(i).estado){
+                //agregamos al pago y cambia los prestamos del mismo
+                numeroPago=i;
+                return true;
+            }else{}
+        }
+        return false;
+    }
+        
+    public void pagar(int carne, String code){
+        if(buscarPrestamos(carne, code)){
+            //Se confirma el regreso del libro
+            register.get(numeroPago).regreso();
+        }else{
+            System.out.println("NO existe el registro para poder pagar");
+        }
+    }
+    
 }
