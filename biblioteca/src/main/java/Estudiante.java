@@ -33,6 +33,10 @@ public class Estudiante {
         return carrera;
     }
     
+    public int getLimite() {
+        return limite;
+    }
+    
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -44,7 +48,10 @@ public class Estudiante {
     public void setCarrera(int carrera) {
         this.carrera = carrera;
     }
-     
+    
+    public void setLimite(int librosPrestados){
+        this.limite=librosPrestados;
+    }
     public String toString(){
         String mensaje = "Nombre: "+nombre+" Carnet: "+carnet+"\nCarrera: "+carrera;
         return mensaje;
