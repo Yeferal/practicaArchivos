@@ -3,11 +3,11 @@
  *
  * @author cesar31
  */
-public class VentanaReportes extends javax.swing.JFrame {
+public class VentanaLibros extends javax.swing.JFrame {
 
     Ventana ventana;
     
-    public VentanaReportes(Ventana ventana) {
+    public VentanaLibros(Ventana ventana) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.ventana = ventana;
@@ -25,8 +25,7 @@ public class VentanaReportes extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Reportes");
-        setAlwaysOnTop(true);
+        setTitle("Libros");
 
         jButton1.setText("Back");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -47,7 +46,7 @@ public class VentanaReportes extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(261, Short.MAX_VALUE)
+                .addContainerGap(259, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addContainerGap())
         );
