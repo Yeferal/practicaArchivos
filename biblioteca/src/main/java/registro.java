@@ -85,4 +85,8 @@ public class registro {
         presta.libro.cantidad--;
         register.add(presta);
     }
+    
+    public void devolucion(){
+        
+    }
 }
