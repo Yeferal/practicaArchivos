@@ -21,7 +21,6 @@ public class registro {
         this.tex = tex;
         
     }
-    
     /*yefer
     Verifica si puede prestar libros el estudiante si si luego busca la 
     existencia del libro que se quiere si este existe entonces invia por 
