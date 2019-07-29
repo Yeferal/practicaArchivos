@@ -7,7 +7,23 @@ public class Main {
         Ventana ventana = new Ventana();
         //DateFormat formato = new SimpleDateFormat("YYYY-MM-dd");
         //System.out.println(formato.format(new Date()));
-        //Leer_txt tx = new Leer_txt();
+        Leer_txt tx = new Leer_txt();
+        registro registros = new registro(tx);
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         //tx.generarArchLibros
     }
 }
