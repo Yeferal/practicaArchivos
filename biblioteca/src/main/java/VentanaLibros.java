@@ -1,4 +1,9 @@
 
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
+
 /**
  *
  * @author cesar31
@@ -6,12 +11,69 @@
 public class VentanaLibros extends javax.swing.JFrame {
 
     Ventana ventana;
+    DefaultTableModel modelo1 = new DefaultTableModel();
+    TableRowSorter<TableModel> name1 = new TableRowSorter<TableModel>(modelo1);
     
     public VentanaLibros(Ventana ventana) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.ventana = ventana;
+        modelo1.addColumn("Codigo");
+        modelo1.addColumn("Autor");
+        modelo1.addColumn("Titulo");
+        modelo1.addColumn("Copias");
+        modelo1.addColumn("Fecha Publicacion");
+        modelo1.addColumn("Editorial");
     }
+    
+    public void agregarFilaTabla(String codigo, String autor, String titulo, int copias, String fecha, String editorial){
+        String [] elementos = new String[4];
+        elementos[0]=codigo;
+        elementos[1]=autor;
+        elementos[2]=titulo;
+        elementos[3]=Integer.toString(copias);
+        elementos[4]=fecha;
+        elementos[5]=editorial;
+        modelo1.addRow(elementos);
+        jTable1.setModel(modelo1);
+    }
+    
+    public void removerTabla(){
+        System.out.println(jTable1.getRowCount());
+        for(int i=0;i<jTable1.getRowCount();i++){
+            modelo1.removeRow(i);
+            i-=1;
+        }
+    }
+    
+//    public void ordenarLibros(){
+//                Libro aux;
+//        for (int i = 0; i < (ventana.tex.datos.libros.size()-1); i++) {
+//            for (int j = 0; j < (ventana.tex.datos.libros.size()-1); j++) {
+//                if(Integer.parseInt((ventana.tex.datos.libros.get(j).codigo).substring(0,2))>Integer.parseInt((ventana.tex.datos.libros.get(j+1).codigo).substring(0,2))){
+//                    aux=ventana.tex.datos.libros.get(j);
+//                    ventana.tex.datos.libros.set(j,ventana.tex.datos.libros.get(j+1));
+//                    ventana.tex.datos.libros.set(j+1,aux);
+//                }
+//            }
+//        }
+////        tex.datos.libros.sort(code);
+//    }
+//    private void ordenarLibrosAscendente(){
+//        for (int i = 0; i < (ventana.tex.datos.libros.size()-1); i++) {
+//
+//            //Se aniade la informacion en este orden a la tabla
+//                
+//        }
+//    }
+//        
+//    private void ordenarLibrosDescendente(){
+//        for (int i = (ventana.tex.datos.libros.size()-1); i >= 0; i--) {
+//
+//            //Se aniade la informacion en este orden a la tabla
+//                
+//        }
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -39,8 +101,8 @@ public class VentanaLibros extends javax.swing.JFrame {
         jTextField12 = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jComboBox1 = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
@@ -80,12 +142,12 @@ public class VentanaLibros extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jTextField11)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 141, Short.MAX_VALUE)
+                    .addComponent(jLabel11, javax.swing.GroupLayout.PREFERRED_SIZE, 141, Short.MAX_VALUE)
                     .addComponent(jTextField9)
                     .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField7)
                     .addComponent(jLabel9, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField8)
@@ -133,10 +195,15 @@ public class VentanaLibros extends javax.swing.JFrame {
 
         jTabbedPane2.addTab("Nuevo", jPanel2);
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane3.setViewportView(jTable1);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -144,14 +211,14 @@ public class VentanaLibros extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 330, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 309, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -184,7 +251,7 @@ public class VentanaLibros extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 87, Short.MAX_VALUE)))
+                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 120, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -196,7 +263,7 @@ public class VentanaLibros extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 261, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -252,10 +319,10 @@ public class VentanaLibros extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane2;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField10;

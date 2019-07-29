@@ -41,6 +41,35 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
             i-=1;
         }
     }
+    
+//    private void ordenarEstudiante(){
+//                Estudiante aux;
+//        for (int i = 0; i < (ventana.tx.datos.estudiantes.size()-1); i++) {
+//            for (int j = 0; j < (ventana.tx.datos.estudiantes.size()-1); j++) {
+//                if(ventana.tx.datos.estudiantes.get(j).carnet>ventana.tx.datos.estudiantes.get(j+1).carnet){
+//                    aux=ventana.tx.datos.estudiantes.get(j);
+//                    ventana.tx.datos.estudiantes.set(j,ventana.tx.datos.estudiantes.get(j+1));
+//                    ventana.tx.datos.estudiantes.set(j+1,aux);
+//                }
+//            }
+//        }
+//    }
+    
+//    private void descendente(){
+//                for (int i = (tex.datos.estudiantes.size()-1); i >= 0; i--) {
+//
+//            //Se aniade la informacion en este orden a la tabla
+//                
+//        }
+//    }
+//    
+//    private void ascendente(){
+//                for (int i = 0; i < (ventana.tex.datos.estudiantes.size()-1); i++) {
+//
+//            //Se aniade la informacion en este orden a la tabla
+//                
+//        }
+//    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -155,13 +184,10 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
         jScrollPane3.setViewportView(jTable1);
