@@ -13,6 +13,7 @@ public class Main {
         Leer_txt tx = new Leer_txt();
         //tx.datos.verPrestamos();
         //tx.GuardarObjetos();
+        registro registros = new registro(tx);
         //tx.generarArchLibros
         //tx.CargarObjetos();
         //tx.datos.verPrestamos();
