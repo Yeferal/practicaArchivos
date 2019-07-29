@@ -1,4 +1,6 @@
 
+import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
@@ -24,19 +26,19 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
         modelo1.addColumn("F. Nacimiento");
     }
     
-    public void agregarFilaTabla(int carnet, String nombre, int carrera, String nacimeinto){
+    public void agregarFilaTabla(int carnet, String nombre, int carrera, String nacimeinto, JTable tabla){
         String [] elementos = new String[4];
         elementos[0]=Integer.toString(carnet);
         elementos[1]=nombre;
         elementos[2]=Integer.toString(carrera);
         elementos[3]=nacimeinto;
         modelo1.addRow(elementos);
-        jTable1.setModel(modelo1);
+        tabla.setModel(modelo1);
     }
     
-    public void removerTabla(){
-        System.out.println(jTable1.getRowCount());
-        for(int i=0;i<jTable1.getRowCount();i++){
+    public void removerTabla(JTable tabla){
+        System.out.println(tabla.getRowCount());
+        for(int i=0;i<tabla.getRowCount();i++){
             modelo1.removeRow(i);
             i-=1;
         }
@@ -56,18 +58,20 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
     }
     
     private void descendente(){
+        removerTabla(jTable1);
                 for (int i = (ventana.tx.datos.estudiantes.size()-1); i >= 0; i--) {
 
             //Se aniade la informacion en este orden a la tabla
-             agregarFilaTabla(ventana.tx.datos.estudiantes.get(i).carnet,ventana.tx.datos.estudiantes.get(i).nombre,ventana.tx.datos.estudiantes.get(i).carrera,ventana.tx.datos.estudiantes.get(i).fechaNacimiento);   
+             agregarFilaTabla(ventana.tx.datos.estudiantes.get(i).carnet,ventana.tx.datos.estudiantes.get(i).nombre,ventana.tx.datos.estudiantes.get(i).carrera,ventana.tx.datos.estudiantes.get(i).fechaNacimiento,jTable1);   
         }
     }
     
     private void ascendente(){
+        removerTabla(jTable1);
             for (int i = 0; i <= (ventana.tx.datos.estudiantes.size()-1); i++) {
 
             //Se aniade la informacion en este orden a la tabla
-            agregarFilaTabla(ventana.tx.datos.estudiantes.get(i).carnet,ventana.tx.datos.estudiantes.get(i).nombre,ventana.tx.datos.estudiantes.get(i).carrera,ventana.tx.datos.estudiantes.get(i).fechaNacimiento);    
+            agregarFilaTabla(ventana.tx.datos.estudiantes.get(i).carnet,ventana.tx.datos.estudiantes.get(i).nombre,ventana.tx.datos.estudiantes.get(i).carrera,ventana.tx.datos.estudiantes.get(i).fechaNacimiento,jTable1);    
         }
     }
 
@@ -75,19 +79,19 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
         if(filtro=="Carnet"){
             for (int i = 0; i < ventana.tx.datos.estudiantes.size(); i++) {
                 if(ventana.tx.datos.estudiantes.get(i).carnet==Integer.parseInt(dato)){
-                    agregarFilaTabla(ventana.tx.datos.estudiantes.get(i).carnet,ventana.tx.datos.estudiantes.get(i).nombre,ventana.tx.datos.estudiantes.get(i).carrera,ventana.tx.datos.estudiantes.get(i).fechaNacimiento);
+                    agregarFilaTabla(ventana.tx.datos.estudiantes.get(i).carnet,ventana.tx.datos.estudiantes.get(i).nombre,ventana.tx.datos.estudiantes.get(i).carrera,ventana.tx.datos.estudiantes.get(i).fechaNacimiento,jTable2);
                 }
             }
         }else if(filtro=="Nombre"){
             for (int i = 0; i < ventana.tx.datos.estudiantes.size(); i++) {
                 if(ventana.tx.datos.estudiantes.get(i).nombre==dato){
-                    agregarFilaTabla(ventana.tx.datos.estudiantes.get(i).carnet,ventana.tx.datos.estudiantes.get(i).nombre,ventana.tx.datos.estudiantes.get(i).carrera,ventana.tx.datos.estudiantes.get(i).fechaNacimiento);
+                    agregarFilaTabla(ventana.tx.datos.estudiantes.get(i).carnet,ventana.tx.datos.estudiantes.get(i).nombre,ventana.tx.datos.estudiantes.get(i).carrera,ventana.tx.datos.estudiantes.get(i).fechaNacimiento,jTable2);
                 }
             }
         }else if(filtro=="#Carrera"){
             for (int i = 0; i < ventana.tx.datos.estudiantes.size(); i++) {
                 if(ventana.tx.datos.estudiantes.get(i).carrera==Integer.parseInt(dato)){
-                    agregarFilaTabla(ventana.tx.datos.estudiantes.get(i).carnet,ventana.tx.datos.estudiantes.get(i).nombre,ventana.tx.datos.estudiantes.get(i).carrera,ventana.tx.datos.estudiantes.get(i).fechaNacimiento);
+                    agregarFilaTabla(ventana.tx.datos.estudiantes.get(i).carnet,ventana.tx.datos.estudiantes.get(i).nombre,ventana.tx.datos.estudiantes.get(i).carrera,ventana.tx.datos.estudiantes.get(i).fechaNacimiento,jTable2);
                 }
             }
         }
@@ -122,8 +126,8 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
         jComboBox1 = new javax.swing.JComboBox<>();
         jTextField5 = new javax.swing.JTextField();
         jButton3 = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTable2 = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Estudiantes");
@@ -200,7 +204,7 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(282, Short.MAX_VALUE))
+                .addContainerGap(306, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Nuevo", jPanel1);
@@ -273,10 +277,15 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
             }
         });
 
-        jTextArea2.setEditable(false);
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane2.setViewportView(jTextArea2);
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(jTable2);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -285,16 +294,14 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 792, Short.MAX_VALUE)
-                        .addContainerGap())
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextField5)
+                        .addComponent(jTextField5, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))))
+                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -304,9 +311,9 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 392, Short.MAX_VALUE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Buscar", jPanel3);
@@ -344,6 +351,15 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        if((jTextField2.getText().equals("")) || (jTextField1.getText().equals("")) || (jTextField3.getText().equals("")) || (jTextField4.getText().equals(""))){
+            JOptionPane.showMessageDialog(null, "No se han llenado todos los campos, para registrar necesitas llenar todo los datos");
+
+        }else{
+            //ventana.tx.datos.nuevoEstudiante(jTextField2.getText(), Integer.parseInt(jTextField1.getText()), Integer.parseInt(jTextField3.getText()), "Fecha");
+            //ventana.tx.datos.estudiantes.get(ventana.tx.datos.estudiantes.size()-1).fechaNacimiento=jTextField4.getText();
+ 
+            JOptionPane.showMessageDialog(null, "listo");
+        }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -353,14 +369,14 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        removerTabla();
+        removerTabla(jTable1);
         ordenarEstudiante();
         ascendente();           
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        removerTabla();
+        removerTabla(jTable1);
         ordenarEstudiante();
         descendente();
     }//GEN-LAST:event_jButton5ActionPerformed
@@ -368,10 +384,9 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         //BUSCAR
-        removerTabla();
+        removerTabla(jTable2);
         filtrar(jComboBox1.getSelectedItem().toString(), jTextField5.getText());
-        jTextArea2.setColumns(2);
-        jTextArea2.setRows(2);
+
     }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
@@ -392,11 +407,11 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
