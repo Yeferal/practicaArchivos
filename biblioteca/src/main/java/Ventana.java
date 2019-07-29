@@ -5,11 +5,13 @@ public class Ventana extends javax.swing.JFrame {
     VentanaPrestamos ventanaPrestamos = new VentanaPrestamos(this);
     VentanaLibros ventanaLibros = new VentanaLibros(this);
     VentanaReportes ventanaReportes = new VentanaReportes(this);
+    Leer_txt tx;
         
-    public Ventana() {
+    public Ventana(Leer_txt tx) {
         initComponents();
         this.setVisible(true);
         this.setLocationRelativeTo(null);
+        this.tx = tx;
     }
 
     @SuppressWarnings("unchecked")

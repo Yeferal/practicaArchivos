@@ -6,8 +6,6 @@ import java.io.Serializable;
  */
 public class Prestamo implements Serializable {
     
-    Estudiante estudiante;//borrar
-    Libro libro;//borrar
     
     String codigoL;
     int carnetE;
@@ -70,17 +68,7 @@ public class Prestamo implements Serializable {
     public void setMontoAPagar(int montoAPagar) {
         this.montoAPagar = montoAPagar;
     }
-    public void presto(){
-        estado=true;
-        estudiante.limite++;
-        libro.cantidad--;
-    }
-    public void regreso(){
-        estado= false;
-        estudiante.limite--;
-        libro.cantidad++;
-    }
-    
+
     public String toString(){
         String mensaje = "Carnet: "+carnetE+" Libro: "+codigoL+" Fecha: "+fechaPrestamo;
         return mensaje;
