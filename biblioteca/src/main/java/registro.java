@@ -1,7 +1,4 @@
 
-import java.util.ArrayList;
-import java.util.Collections;
-
 
 /**
  *
@@ -70,7 +67,7 @@ public class registro {
     */
     public boolean buscarLibro(String codigo){
                 for (int i = 0; i < tex.datos.libros.size(); i++) {
-            if(tex.datos.libros.get(i).codigo==codigo){
+            if(tex.datos.libros.get(i).codigo == codigo){
                 codigos=i;
                 return true;
             }
@@ -83,7 +80,9 @@ public class registro {
     */
     public void registro(int posocion,int libro){
         presta= new Prestamo(tex.datos.estudiantes.get(posocion).carnet, tex.datos.libros.get(libro).codigo, "");
-        presta.presto();
+        
+        //presta.presto();
+        //Metodo para reducir el libro que prestó y aumentar la cantidad de prestamos al estudiante
         
         tex.datos.register.add(presta);
     }
@@ -93,7 +92,7 @@ public class registro {
     }
     public boolean buscarPrestamos(int carne, String code){
         for (int i = 0; i < tex.datos.register.size(); i++) {
-            if(tex.datos.register.get(i).estudiante.carnet==carne && tex.datos.register.get(i).libro.codigo==code && tex.datos.register.get(i).estado){
+            if(tex.datos.register.get(i).carnetE==carne && tex.datos.register.get(i).codigoL==code && tex.datos.register.get(i).estado){
                 //agregamos al pago y cambia los prestamos del mismo
                 numeroPago=i;
                 return true;
@@ -105,7 +104,9 @@ public class registro {
     public void pagar(int carne, String code){
         if(buscarPrestamos(carne, code)){
             //Se confirma el regreso del libro
-            tex.datos.register.get(numeroPago).regreso();
+            //tex.datos.register.get(numeroPago).regreso();
+            //Agregar metodo para aumentar la cantidad de libros, según el que regreso y reducir la cantidad de
+            //prestamos del estudiante
         }else{
             System.out.println("NO existe el registro para poder pagar");
         }
@@ -155,7 +156,8 @@ public class registro {
     }
     public void ordenarLibrosAscendente(){
         for (int i = 0; i < (tex.datos.libros.size()-1); i++) {
-
+            
+           
             //Se aniade la informacion en este orden a la tabla
                 
         }

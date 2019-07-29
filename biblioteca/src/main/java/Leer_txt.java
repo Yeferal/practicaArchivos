@@ -10,6 +10,7 @@ public class Leer_txt {
     
     String ruta= "practica1.txt";
     Datos datos = new Datos();
+    registro registros = new registro(this);
     
     public Leer_txt(){
         
