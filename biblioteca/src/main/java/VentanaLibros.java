@@ -46,34 +46,36 @@ public class VentanaLibros extends javax.swing.JFrame {
         }
     }
     
-//    public void ordenarLibros(){
-//                Libro aux;
-//        for (int i = 0; i < (ventana.tex.datos.libros.size()-1); i++) {
-//            for (int j = 0; j < (ventana.tex.datos.libros.size()-1); j++) {
-//                if(Integer.parseInt((ventana.tex.datos.libros.get(j).codigo).substring(0,2))>Integer.parseInt((ventana.tex.datos.libros.get(j+1).codigo).substring(0,2))){
-//                    aux=ventana.tex.datos.libros.get(j);
-//                    ventana.tex.datos.libros.set(j,ventana.tex.datos.libros.get(j+1));
-//                    ventana.tex.datos.libros.set(j+1,aux);
-//                }
-//            }
-//        }
-////        tex.datos.libros.sort(code);
-//    }
-//    private void ordenarLibrosAscendente(){
-//        for (int i = 0; i < (ventana.tex.datos.libros.size()-1); i++) {
-//
-//            //Se aniade la informacion en este orden a la tabla
-//                
-//        }
-//    }
-//        
-//    private void ordenarLibrosDescendente(){
-//        for (int i = (ventana.tex.datos.libros.size()-1); i >= 0; i--) {
-//
-//            //Se aniade la informacion en este orden a la tabla
-//                
-//        }
-//    }
+    public void ordenarLibros(){
+                Libro aux;
+        for (int i = 0; i < (ventana.tx.datos.libros.size()-1); i++) {
+            for (int j = 0; j < (ventana.tx.datos.libros.size()-1); j++) {
+                if(Integer.parseInt((ventana.tx.datos.libros.get(j).codigo).substring(0,2))>Integer.parseInt((ventana.tx.datos.libros.get(j+1).codigo).substring(0,2))){
+                    aux=ventana.tx.datos.libros.get(j);
+                    ventana.tx.datos.libros.set(j,ventana.tx.datos.libros.get(j+1));
+                    ventana.tx.datos.libros.set(j+1,aux);
+                }
+            }
+       }
+//        tex.datos.libros.sort(code);
+    }
+    private void ordenarLibrosAscendente(){
+        removerTabla();
+        for (int i = 0; i < (ventana.tx.datos.libros.size()-1); i++) {
+
+            //Se aniade la informacion en este orden a la tabla
+            agregarFilaTabla(ventana.tx.datos.libros.get(i).codigo, ventana.tx.datos.libros.get(i).autor,ventana.tx.datos.libros.get(i).titulo, ventana.tx.datos.libros.get(i).cantidad, ventana.tx.datos.libros.get(i).fechaPublicacion, ventana.tx.datos.libros.get(i).editorial);
+        }
+    }
+        
+    private void ordenarLibrosDescendente(){
+        removerTabla();
+        for (int i = (ventana.tx.datos.libros.size()-1); i >= 0; i--) {
+
+            //Se aniade la informacion en este orden a la tabla
+             agregarFilaTabla(ventana.tx.datos.libros.get(i).codigo, ventana.tx.datos.libros.get(i).autor,ventana.tx.datos.libros.get(i).titulo, ventana.tx.datos.libros.get(i).cantidad, ventana.tx.datos.libros.get(i).fechaPublicacion, ventana.tx.datos.libros.get(i).editorial);   
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

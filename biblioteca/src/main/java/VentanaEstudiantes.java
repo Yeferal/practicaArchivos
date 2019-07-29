@@ -42,34 +42,34 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
         }
     }
     
-//    private void ordenarEstudiante(){
-//                Estudiante aux;
-//        for (int i = 0; i < (ventana.tx.datos.estudiantes.size()-1); i++) {
-//            for (int j = 0; j < (ventana.tx.datos.estudiantes.size()-1); j++) {
-//                if(ventana.tx.datos.estudiantes.get(j).carnet>ventana.tx.datos.estudiantes.get(j+1).carnet){
-//                    aux=ventana.tx.datos.estudiantes.get(j);
-//                    ventana.tx.datos.estudiantes.set(j,ventana.tx.datos.estudiantes.get(j+1));
-//                    ventana.tx.datos.estudiantes.set(j+1,aux);
-//                }
-//            }
-//        }
-//    }
+    private void ordenarEstudiante(){
+                Estudiante aux;
+        for (int i = 0; i < (ventana.tx.datos.estudiantes.size()-1); i++) {
+            for (int j = 0; j < (ventana.tx.datos.estudiantes.size()-1); j++) {
+                if(ventana.tx.datos.estudiantes.get(j).carnet>ventana.tx.datos.estudiantes.get(j+1).carnet){
+                    aux=ventana.tx.datos.estudiantes.get(j);
+                    ventana.tx.datos.estudiantes.set(j,ventana.tx.datos.estudiantes.get(j+1));
+                    ventana.tx.datos.estudiantes.set(j+1,aux);
+                }
+            }
+        }
+    }
     
-//    private void descendente(){
-//                for (int i = (tex.datos.estudiantes.size()-1); i >= 0; i--) {
-//
-//            //Se aniade la informacion en este orden a la tabla
-//                
-//        }
-//    }
-//    
-//    private void ascendente(){
-//                for (int i = 0; i < (ventana.tex.datos.estudiantes.size()-1); i++) {
-//
-//            //Se aniade la informacion en este orden a la tabla
-//                
-//        }
-//    }
+    private void descendente(){
+                for (int i = (ventana.tx.datos.estudiantes.size()-1); i >= 0; i--) {
+
+            //Se aniade la informacion en este orden a la tabla
+             agregarFilaTabla(ventana.tx.datos.estudiantes.get(i).carnet,ventana.tx.datos.estudiantes.get(i).nombre,ventana.tx.datos.estudiantes.get(i).carrera,ventana.tx.datos.estudiantes.get(i).fechaNacimiento);   
+        }
+    }
+    
+    private void ascendente(){
+            for (int i = 0; i < (ventana.tx.datos.estudiantes.size()-1); i++) {
+
+            //Se aniade la informacion en este orden a la tabla
+            agregarFilaTabla(ventana.tx.datos.estudiantes.get(i).carnet,ventana.tx.datos.estudiantes.get(i).nombre,ventana.tx.datos.estudiantes.get(i).carrera,ventana.tx.datos.estudiantes.get(i).fechaNacimiento);    
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
