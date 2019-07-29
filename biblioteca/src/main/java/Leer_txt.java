@@ -8,20 +8,20 @@ import java.util.ArrayList;
  */
 public class Leer_txt {
     
-    String ruta= "practica1.txt";
+    String ruta = "practica1.txt";
+    boolean cargado;
     Datos datos = new Datos();
     registro registros = new registro(this);
     
     public Leer_txt(){
         
-        leer();
-        
+        //leer(ruta);
     }
     
-    public void leer(){
+    public void leer(String fichero){
         
         try {
-            FileReader tx = new FileReader(ruta);
+            FileReader tx = new FileReader(fichero);
             BufferedReader br = new BufferedReader(tx);
             
             for (int i = 0; i < 60; i++) {
@@ -85,25 +85,32 @@ public class Leer_txt {
             guardarLibros.writeObject(datos.libros);
             guardarLibros.close();
             
+        }catch(Exception e){
+            System.out.println("no guarda libros");
+        }
+        
+        try{
             ObjectOutputStream guardarEstudiantes = new ObjectOutputStream(new FileOutputStream("estudiantes.txt"));
             guardarEstudiantes.writeObject(datos.estudiantes);
             guardarEstudiantes.close();
             
         }catch(Exception e){
-            
+            System.out.println("no guarda estudiantes");
         }
-
+        
         try{
-            
             ObjectOutputStream guardarPrestamos = new ObjectOutputStream(new FileOutputStream("prestamos.txt"));
             guardarPrestamos.writeObject(datos.register);
             guardarPrestamos.close();
             
-        }catch(Exception e){}
+        }catch(Exception e){
+            System.out.println("no guarda prestamos");
+        }
     }
     
     
     public void CargarObjetos() throws FileNotFoundException, IOException{
+        int contador=0;
         try{
             ObjectInputStream cargarLibros = new ObjectInputStream(new FileInputStream("libros.txt"));
             ArrayList<Libro> librosRecuperados = (ArrayList<Libro>) cargarLibros.readObject();
@@ -113,6 +120,12 @@ public class Leer_txt {
                 datos.libros.add(librosRecuperados.get(i)); 
             }
             
+        }catch(Exception e){
+            contador++;
+            System.out.println(contador);
+        }
+        
+        try{
             ObjectInputStream cargarEstudiantes = new ObjectInputStream(new FileInputStream("estudiantes.txt"));
             ArrayList<Estudiante> estudiantesRecuperados = (ArrayList<Estudiante>) cargarEstudiantes.readObject();
             cargarEstudiantes.close();
@@ -120,8 +133,10 @@ public class Leer_txt {
             for(int i=0; i<estudiantesRecuperados.size(); i++){
                 datos.estudiantes.add(estudiantesRecuperados.get(i));
             }
-            
-        }catch(Exception e){}           
+        }catch(Exception e){
+            contador++;
+            System.out.println(contador);
+        }
         
         try{
             ObjectInputStream cargarPrestamos = new ObjectInputStream(new FileInputStream("prestamos.txt"));
@@ -131,7 +146,19 @@ public class Leer_txt {
             for(int i=0; i<prestamosRecuperados.size(); i++){
                 datos.register.add(prestamosRecuperados.get(i));
             }
-        }catch(Exception e){}
+        }catch(Exception e){
+            contador++;
+            System.out.println(contador);
+        }
+        
+        if(contador==0){
+            cargado = true;
+        }
+
+        if(contador>0){
+            cargado = false;
+        }
+
     }
          
     /**
