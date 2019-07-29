@@ -69,12 +69,14 @@ public class Leer_txt {
         datos.nuevoLibro(title.substring(7), autor.substring(6), codigo.substring(7), Integer.parseInt(candidad.substring(9)));   
     }
     public void datosEstudiante(String carnet, String nombre, String carrera){
-          datos.nuevoEstudiante(nombre.substring(7),Integer.parseInt(carnet.substring(7)), Integer.parseInt(carrera.substring(8)), " null");
+        datos.nuevoEstudiante(nombre.substring(7),Integer.parseInt(carnet.substring(7)), Integer.parseInt(carrera.substring(8)), " null");
     }
+    
     public void datosPrestamo(String codigo, String carnet, String fecha){
+        datos.nuevoPrestamo(codigo.substring(12), Integer.parseInt(carnet.substring(7)), fecha.substring(6));
     }
     
-    
+    //Metodo para serializar los objetos, libros, estudiantes, prestamos
     public void GuardarObjetos(){
         
         try{
@@ -85,14 +87,22 @@ public class Leer_txt {
             ObjectOutputStream guardarEstudiantes = new ObjectOutputStream(new FileOutputStream("estudiantes.txt"));
             guardarEstudiantes.writeObject(datos.estudiantes);
             guardarEstudiantes.close();
-
+            
         }catch(Exception e){
             
         }
+
+        try{
+            
+            ObjectOutputStream guardarPrestamos = new ObjectOutputStream(new FileOutputStream("prestamos.txt"));
+            guardarPrestamos.writeObject(datos.register);
+            guardarPrestamos.close();
+            
+        }catch(Exception e){}
     }
     
     
-    public void CargarObjetos(){
+    public void CargarObjetos() throws FileNotFoundException, IOException{
         try{
             ObjectInputStream cargarLibros = new ObjectInputStream(new FileInputStream("libros.txt"));
             ArrayList<Libro> librosRecuperados = (ArrayList<Libro>) cargarLibros.readObject();
@@ -100,7 +110,6 @@ public class Leer_txt {
             
             for(int i=0; i<librosRecuperados.size(); i++){
                 datos.libros.add(librosRecuperados.get(i)); 
-
             }
             
             ObjectInputStream cargarEstudiantes = new ObjectInputStream(new FileInputStream("estudiantes.txt"));
@@ -109,12 +118,19 @@ public class Leer_txt {
             
             for(int i=0; i<estudiantesRecuperados.size(); i++){
                 datos.estudiantes.add(estudiantesRecuperados.get(i));
-
             }
             
-        }catch(Exception e){
+        }catch(Exception e){}           
         
-        }
+        try{
+            ObjectInputStream cargarPrestamos = new ObjectInputStream(new FileInputStream("prestamos.txt"));
+            ArrayList<Prestamo> prestamosRecuperados = (ArrayList<Prestamo>) cargarPrestamos.readObject();
+            cargarPrestamos.close();
+            
+            for(int i=0; i<prestamosRecuperados.size(); i++){
+                datos.register.add(prestamosRecuperados.get(i));
+            }
+        }catch(Exception e){}
     }
          
     /**

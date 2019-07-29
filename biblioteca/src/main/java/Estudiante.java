@@ -62,7 +62,7 @@ public class Estudiante {
         
     }
     public String toString(){
-        String mensaje = "Nombre: "+nombre+" Carnet: "+carnet+"\nCarrera: "+carrera;
+        String mensaje = "Nombre: "+nombre+" Carnet: "+carnet+"Carrera: "+carrera;
         return mensaje;
     } 
 }

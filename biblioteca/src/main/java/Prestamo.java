@@ -1,34 +1,40 @@
 
-
-
+import java.io.Serializable;
 /**
  *
  * @author cesar31
  */
-public class Prestamo {
+public class Prestamo implements Serializable {
     
-    Estudiante estudiante;
-    Libro libro;
+    Estudiante estudiante;//borrar
+    Libro libro;//borrar
+    
+    String codigoL;
+    int carnetE;
     boolean estado;
     String fechaPrestamo;
     String fechaDevolucion;
     int montoAPagar;
     
     
-    public Prestamo(Estudiante estudiante, Libro libro, String fechaPrestamo){
-        this.estudiante = estudiante;
-        this.libro = libro;
+    public Prestamo(int carnetE, String codigoL, String fechaPrestamo){
+        this.carnetE = carnetE;
+        this.codigoL = codigoL;
         this.fechaPrestamo = fechaPrestamo;
     }
 
-    public Estudiante getEstudiante() {
-        return estudiante;
+    public String getCodigoL() {
+        return codigoL;
     }
 
-    public Libro getLibro() {
-        return libro;
+    public int getCarnetE() {
+        return carnetE;
     }
 
+    public boolean isEstado() {
+        return estado;
+    }
+    
     public String getFechaPrestamo() {
         return fechaPrestamo;
     }
@@ -41,12 +47,16 @@ public class Prestamo {
         return montoAPagar;
     }
 
-    public void setEstudiante(Estudiante estudiante) {
-        this.estudiante = estudiante;
+    public void setCodigoL(String codigoL) {
+        this.codigoL = codigoL;
     }
 
-    public void setLibro(Libro libro) {
-        this.libro = libro;
+    public void setCarnetE(int carnetE) {
+        this.carnetE = carnetE;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     public void setFechaPrestamo(String fechaPrestamo) {
@@ -69,5 +79,10 @@ public class Prestamo {
         estado= false;
         estudiante.limite--;
         libro.cantidad++;
+    }
+    
+    public String toString(){
+        String mensaje = "Carnet: "+carnetE+" Libro: "+codigoL+" Fecha: "+fechaPrestamo;
+        return mensaje;
     }
 }

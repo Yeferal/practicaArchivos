@@ -81,7 +81,7 @@ public class registro {
     del estudiante, por ultimo agrega el registro al arreglo de prestamos
     */
     public void registro(int posocion,int libro){
-        presta= new Prestamo(tex.datos.estudiantes.get(posocion), tex.datos.libros.get(libro), "");
+        presta= new Prestamo(tex.datos.estudiantes.get(posocion).carnet, tex.datos.libros.get(libro).codigo, "");
         presta.presto();
         
         tex.datos.register.add(presta);
