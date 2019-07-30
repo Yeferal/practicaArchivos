@@ -13,11 +13,12 @@ public class Ventana extends javax.swing.JFrame {
     VentanaPrestamos ventanaPrestamos = new VentanaPrestamos(this);
     VentanaLibros ventanaLibros = new VentanaLibros(this);
     VentanaReportes ventanaReportes = new VentanaReportes(this);
+    
     Leer_txt tx;
     Libro tmpL;
     Estudiante tmpE;
     Prestamo tmpP;
-    
+    errores ventanaErrores = new errores(tx);
         
     public Ventana(Leer_txt tx) {
         initComponents();
@@ -29,6 +30,12 @@ public class Ventana extends javax.swing.JFrame {
         }else{
             BuscarDoc.setEnabled(true);
         }
+        lll();
+    }
+    public void lll(){
+        ventanaErrores.BtnRegrasar.addActionListener((e) -> {
+            ventanaErrores.setVisible(false);
+        });
     }
 
     @SuppressWarnings("unchecked")
@@ -42,6 +49,7 @@ public class Ventana extends javax.swing.JFrame {
         BtnReportes = new javax.swing.JButton();
         EscritorioPanel = new javax.swing.JDesktopPane();
         BuscarDoc = new javax.swing.JButton();
+        BtnErrores = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Biblioteca - CUNOC");
@@ -88,6 +96,13 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
 
+        BtnErrores.setText("errores");
+        BtnErrores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnErroresActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -111,6 +126,8 @@ public class Ventana extends javax.swing.JFrame {
                                     .addComponent(BtnPrestamos, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(103, 103, 103))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(BtnErrores, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
                                 .addComponent(BuscarDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())))))
         );
@@ -134,7 +151,9 @@ public class Ventana extends javax.swing.JFrame {
                         .addContainerGap(33, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BuscarDoc)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(BuscarDoc)
+                            .addComponent(BtnErrores))
                         .addContainerGap())))
         );
 
@@ -185,7 +204,13 @@ public class Ventana extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BuscarDocActionPerformed
 
+    private void BtnErroresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnErroresActionPerformed
+        // TODO add your handling code here:
+        ventanaErrores.setVisible(true);
+    }//GEN-LAST:event_BtnErroresActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnErrores;
     private javax.swing.JButton BtnEstudiantes;
     private javax.swing.JButton BtnLibros;
     private javax.swing.JButton BtnPrestamos;

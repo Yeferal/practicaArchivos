@@ -12,14 +12,17 @@ public class Leer_txt {
     boolean cargado;
     Datos datos = new Datos(this);
     registro registros = new registro(this);
-    
+    errores error = new errores(this);
     public Leer_txt(){
         
         //leer(ruta);
     }
     
     public void leer(String fichero){
-        
+        String tituloNombreFecha;
+        String carnetCodigolibro;
+        String cantidad;
+        String autorCarreraCodigo;
         try{
             FileReader tx = new FileReader(fichero);
             BufferedReader br = new BufferedReader(tx);
@@ -29,17 +32,40 @@ public class Leer_txt {
                 switch (br.readLine()) {
                     case "LIBRO":
                         libro();
-                        datoslibro(br.readLine(),br.readLine(),br.readLine(),br.readLine());                            
+                        tituloNombreFecha=br.readLine();
+                        autorCarreraCodigo=br.readLine();
+                        carnetCodigolibro=br.readLine();
+                        cantidad=br.readLine();
+                        
+                        if(vdatoslibros(tituloNombreFecha,autorCarreraCodigo,carnetCodigolibro,cantidad)){
+                            datoslibro(tituloNombreFecha,autorCarreraCodigo,carnetCodigolibro,cantidad);
+                        }
+                        
                         break;
                     case "ESTUDIANTE":
                         estudiante();
-                        datosEstudiante(br.readLine(),br.readLine(),br.readLine());  
+                        tituloNombreFecha=br.readLine();
+                        autorCarreraCodigo=br.readLine();
+                        carnetCodigolibro=br.readLine();
+                        if(vdatosEstudiante(tituloNombreFecha,autorCarreraCodigo,carnetCodigolibro)){
+                            datosEstudiante(tituloNombreFecha,autorCarreraCodigo,carnetCodigolibro);
+                        }else{
+                            
+                        }
+                         
                         break;
                     case "PRESTAMO":
                         prestamo();
-                        datosPrestamo(br.readLine(),br.readLine(),br.readLine());
+                        tituloNombreFecha=br.readLine();
+                        autorCarreraCodigo=br.readLine();
+                        carnetCodigolibro=br.readLine();
+                        if(vdatosPrestamos(tituloNombreFecha,autorCarreraCodigo,carnetCodigolibro)){
+                            datosPrestamo(tituloNombreFecha,autorCarreraCodigo,carnetCodigolibro);
+                        }
+                        
                         break;
                     default:
+                        error.agregarfila("Error con dato desconocodo, no se agrego un dato verifique la estructura del documento");
                         break; 
                 }              
             }  
@@ -47,7 +73,36 @@ public class Leer_txt {
         }catch(Exception e){
             
         }
+        error.setVisible(true);
     }
+    
+    public boolean vdatoslibros(String titulo, String autor, String codigo, String candidad){
+        if(titulo.substring(0, 6).equals("TITULO:") && autor.substring(0, 5).equals("AUTOR:") && codigo.substring(0, 6).equals("CODIGO:") && candidad.substring(0, 8).equals("CANTIDAD:")){
+                        return true;
+        }
+        error.agregarfila("Error en ingresar libro no cumplio con todos los parametros requeridos");
+            return false;
+    }
+    
+    public boolean vdatosEstudiante(String carnet, String nombre, String carrera){
+        if(carnet.substring(0, 6).equals("CARNET:") && nombre.substring(0, 6).equals("NOMBRE:") && carrera.substring(0, 7).equals("CARRERA:") ){
+                        return true;
+        }
+        error.agregarfila("Error en ingresar estudiante no cumplio con todos los parametros requeridos");
+            return false;
+    }
+    
+    public boolean vdatosPrestamos(String codigo, String carnet, String fecha){
+        if(codigo.substring(0, 11).equals("CODIGOLIBRO:") && carnet.substring(0, 6).equals("CARNET:") && fecha.substring(0, 5).equals("FECHA:") ){
+            return true;
+        }
+        error.agregarfila("Error en ingresar prestamo no cumplio con todos los parametros requeridos");
+            return false;
+    }
+    
+    
+    
+    
 
     
     public void libro(){ 
@@ -62,6 +117,11 @@ public class Leer_txt {
     
     public void datoslibro(String title, String autor, String codigo, String candidad){
 
+        if(title.substring(0, 5).equals("TITULO")){
+            
+        }else{
+            //error en el tititulo del libro no cumple con los parametros
+        }
         datos.nuevoLibro(title.substring(7), autor.substring(6), codigo.substring(7), Integer.parseInt(candidad.substring(9)));   
     }
     public void datosEstudiante(String carnet, String nombre, String carrera){
