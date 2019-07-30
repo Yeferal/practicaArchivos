@@ -1,12 +1,11 @@
 
-
-
+import java.io.Serializable;
 /**
  *
  * @author César Reginaldo Tzoc Alvarado
  *         Carnet: 201430927
  */
-public class Estudiante {
+public class Estudiante implements Serializable{
     
     String nombre;
     int carnet;

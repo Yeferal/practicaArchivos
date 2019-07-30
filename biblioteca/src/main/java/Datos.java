@@ -1,58 +1,88 @@
 
 import java.util.ArrayList; 
-import java.io.Serializable;
 
 /**
  *
  * @author yefer
  */
-public class Datos implements Serializable {
+public class Datos {
     
     ArrayList<Estudiante> estudiantes =new ArrayList<Estudiante>();
     ArrayList<Libro> libros =new ArrayList<Libro>();
     ArrayList<Prestamo> register= new ArrayList<Prestamo>();
+    Leer_txt tx;
     
-    public Datos (){
-        
+    public Datos (Leer_txt tx){
+        this.tx = tx;
         
     }
     
+    //Metodo para crear nuevoe estudiante, despues de leer practica1.txt
     public void nuevoEstudiante(String nombre, int carnet, int carrera, String fecha){
         Estudiante es =  new Estudiante(carnet, nombre, carrera);
-        estudiantes.add(es);
+        tx.guardarEstudiantes(carnet, es);
+        System.out.println(es.toString());
         
     }
+    
+    //Metodo para crear nuevo libro despues de leer practica1.txt
     public void nuevoLibro(String titulo ,String autor, String codigo, int cantidad){
         Libro lb =  new Libro(titulo, autor, codigo, cantidad);
-        libros.add(lb);
-        
+        tx.guardarLibros(codigo, lb);
     }
     
+    //Metodo para crear nuevo prestamo depues de leer practica1.txt
     public void nuevoPrestamo(String codigo, int carnet, String fecha){
-        boolean cod = false;
-        boolean carn = false;
         
-        for(int i=0; i<libros.size(); i++){
-            if(codigo.equalsIgnoreCase(libros.get(i).getCodigo())){
-                cod = true;
-                break;
-            }
-        }
-        
-        for(int i=0; i<estudiantes.size(); i++){
-            if(carnet == estudiantes.get(i).getCarnet()){
-                carn = true;
-                break;
-            }
-        }
-        
-        if(cod && carn){
-            Prestamo tmp = new Prestamo (carnet, codigo, fecha);
-            register.add(tmp);
-        }
-        
+        Prestamo tmp = new Prestamo (carnet, codigo, fecha);
+        register.add(tmp);
+        //tx.guardarPrestamos(codigo, carnet, tmp);
     }
     
+    /**
+     * Metodo para verificar si algun estudiante tiene mas de un prestamo y concatenarlo en
+     * un solo objeto
+     */
+    
+    public void verificarPrestamos(){
+        for(int i=0; i<register.size(); i++){
+            for(int j=0; j<i; j++){
+                if(register.get(i).getCarnetE() == register.get(j).getCarnetE()){
+                    if(register.get(i).getCodigoL().equals(register.get(j).getCodigoL())){
+
+                        if(register.get(i).getFechaPrestamo2()==null){
+                            register.get(i).setCantidad(register.get(i).getCantidad()+1);
+                            register.get(i).setFechaPrestamo2(register.get(j).getFechaPrestamo());
+                            register.get(i).setEstado2(true);
+                        }else if(register.get(i).getFechaPrestamo3()==null){
+                            register.get(i).setCantidad(register.get(i).getCantidad()+1);
+                            register.get(i).setFechaPrestamo3(register.get(j).getFechaPrestamo());
+                            register.get(i).setEstado3(true);
+                        }
+                        register.remove(j);
+                        
+                    }
+
+                    
+                }
+            }
+        }
+        
+        for(int z=0; z<register.size(); z++){
+            System.out.println(register.get(z).getCodigoL());
+            System.out.println(register.get(z).getCarnetE());
+            System.out.println(register.get(z).getFechaPrestamo());
+            System.out.println(register.get(z).getFechaPrestamo2());
+            System.out.println(register.get(z).getFechaPrestamo3());
+            System.out.println(register.get(z).getCantidad());
+            
+            tx.guardarPrestamos(register.get(z).getCodigoL(), register.get(z).getCarnetE(), register.get(z));
+
+        }
+        register.clear();
+    }
+    
+    /**
     public void ver(){
         for (int i = 0; i < libros.size(); i++) {
             System.out.println(libros.get(i).titulo);  
@@ -70,4 +100,5 @@ public class Datos implements Serializable {
             System.out.println(register.get(i).toString());
         }
     }
+    * */
 }
