@@ -50,7 +50,7 @@ public class Leer_txt {
     }
 
     
-    public void libro(){
+    public void libro(){ 
         System.out.println("es Libro");
     }
     public void estudiante(){

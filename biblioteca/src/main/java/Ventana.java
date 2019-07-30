@@ -2,6 +2,7 @@
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
+import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -194,6 +195,29 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JLabel Titulos;
     // End of variables declaration//GEN-END:variables
 
+    //Metodo que devuelve un arraylist con todos los libros
+    public ArrayList<Libro> arregloLibros(){
+        
+        File carpetaL = new File("libros");
+        String[] nombresAr = carpetaL.list();
+        ArrayList<Libro> librosR = new ArrayList<>();
+        
+        for (int i = 0; i < nombresAr.length; i++) {
+            //System.out.println(nombresAr[i]);
+            try{
+                ObjectInputStream cargarLibro = new ObjectInputStream(new FileInputStream("libros/"+nombresAr[i]));
+                tmpL = (Libro) cargarLibro.readObject();
+                cargarLibro.close();
+            
+            }catch(Exception e){
+                System.out.println("no cargo");
+            }
+            librosR.add(tmpL);
+        }
+        
+        return librosR;
+    }
+    
     public void cargarLibros(String codigo){
         try{
            ObjectInputStream cargarLibro = new ObjectInputStream(new FileInputStream("libros/"+codigo+".bin"));
@@ -204,7 +228,31 @@ public class Ventana extends javax.swing.JFrame {
             System.out.println("no cargo");
         }    
     }
-
+    
+    //Metodo que devuelve un arraylist con todos los Estudiantes
+    public ArrayList<Estudiante> arregloEstudiantes(){
+        
+        File carpetaL = new File("estudiantes");
+        String[] nombresAr = carpetaL.list();
+        ArrayList<Estudiante> estudiantesR = new ArrayList<>();
+        
+        for (int i = 0; i < nombresAr.length; i++) {
+            //System.out.println(nombresAr[i]);
+            try{
+                ObjectInputStream cargarEstudiante = new ObjectInputStream(new FileInputStream("estudiantes/"+nombresAr[i]));
+                tmpE = (Estudiante) cargarEstudiante.readObject();
+                cargarEstudiante.close();
+            
+            }catch(Exception e){
+                System.out.println("no cargo");
+            }
+            estudiantesR.add(tmpE);
+        }
+        
+        return estudiantesR;
+        
+    }
+    
     public void cargarEstudiantes(int carnet){
         try{
            ObjectInputStream cargarEstudiante = new ObjectInputStream(new FileInputStream("estudiantes/"+carnet+".bin"));
@@ -214,6 +262,27 @@ public class Ventana extends javax.swing.JFrame {
         }catch(Exception e){
             System.out.println("no cargo");
         }   
+    }
+    
+    public ArrayList<Prestamo> arregloPrestamos(){
+        File carpetaL = new File("prestamos");
+        String[] nombresAr = carpetaL.list();
+        ArrayList<Prestamo> prestamosR = new ArrayList<>();
+        
+        for (int i = 0; i < nombresAr.length; i++) {
+            //System.out.println(nombresAr[i]);
+            try{
+                ObjectInputStream cargarPrestamo = new ObjectInputStream(new FileInputStream("prestamos/"+nombresAr[i]));
+                tmpP = (Prestamo) cargarPrestamo.readObject();
+                cargarPrestamo.close();
+            
+            }catch(Exception e){
+                System.out.println("no cargo");
+            }
+            prestamosR.add(tmpP);
+        }
+        
+        return prestamosR;
     }
     
     public void cargarPrestamos(String codigo, int carnet){

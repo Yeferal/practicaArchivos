@@ -46,7 +46,7 @@ public class Datos {
     
     public void verificarPrestamos(){
         for(int i=0; i<register.size(); i++){
-            for(int j=0; j<i; j++){
+            for(int j=i+1; j<register.size(); j++){
                 if(register.get(i).getCarnetE() == register.get(j).getCarnetE()){
                     if(register.get(i).getCodigoL().equals(register.get(j).getCodigoL())){
 
@@ -61,9 +61,7 @@ public class Datos {
                         }
                         register.remove(j);
                         
-                    }
-
-                    
+                    }                    
                 }
             }
         }
