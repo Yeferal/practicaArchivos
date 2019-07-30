@@ -51,8 +51,6 @@ public class Prestamo implements Serializable {
         return fechaPrestamo3;
     }
     
-    
-    
     public String getFechaPrestamo() {
         return fechaPrestamo;
     }
@@ -113,8 +111,6 @@ public class Prestamo implements Serializable {
         this.fechaPrestamo3 = fechaPrestamo3;
     }
     
-    
-  
     public String toString(){
         String mensaje = "Carnet: "+carnetE+" Libro: "+codigoL+" Fecha: "+fechaPrestamo;
         return mensaje;
