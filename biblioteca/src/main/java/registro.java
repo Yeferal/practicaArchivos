@@ -1,5 +1,8 @@
 
-
+import java.io.File;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 /**
  *
  * @author yefer
@@ -26,54 +29,57 @@ public class registro {
     parametro las posicion del libro y estudiante al metod que verifica
     si hay libros disponibles
     */
+    
     public void verificacion(int respuesta){
         if(tex.datos.estudiantes.get(respuesta).verificacion()){
             if(buscarLibro(code)){
-                verificacionExistencia(codigos,respuesta);
+                //erificacionExistencia(codigos,respuesta);
             }
             
         }else{
             System.out.println("no puede hacer prestamos");
         }
     }
-    /*Yefer
-    Resive por los parametros de la posicion del libro y estudiante
-    si hay libros disponibles se envian los posiciones a el metod registro 
-    el cual genera el prestamos que se quiere realizar ya antes confirmado
-    */
-    public void verificacionExistencia(int posLibro,int posEstudiante){
-        if(tex.datos.libros.get(posLibro).cantidad>0){
-            registro(posEstudiante, posLibro);
+
+    /**
+     * Verifica la existencia de libros
+     * @param codigo 
+     */ 
+    public boolean verificacionExistencias(String codigo){
+        if(buscarLibro(codigo)){
+            
+            
+            return true;
         }else{
-            System.out.println("No existe libro");
+            return false;
         }
     }
+    
     /*Yefer
     busca la existencia del estudiante en el registro comparando el carnet
     y lo envia a la verificacion de prestamos
     */
+    
     public boolean buscarEstudiante(int carnet){
-        for (int i = 0; i < tex.datos.estudiantes.size(); i++) {
-            if(tex.datos.estudiantes.get(i).carnet==carnet){
-                verificacion(i);
-                return true;
-            }
+        File archivo = new File("estudiantes/"+carnet+".bin");
+        if(archivo.exists()){
+            return true;
+        }else{
+            return false;
         }
-        return false;
-        
     }
     /*yefer
     busca la posicion del libro en existencia
     */
     public boolean buscarLibro(String codigo){
-                for (int i = 0; i < tex.datos.libros.size(); i++) {
-            if(tex.datos.libros.get(i).codigo == codigo){
-                codigos=i;
-                return true;
-            }
+        File archivo = new File("libros/"+codigo+".bin");
+        if(archivo.exists()){
+            return true;
+        }else{
+            return false;
         }
-                return false;
     }
+    
     /*Yefer
     Realiza el registro, y le resta uno al libro disponible y suma 1 al limite
     del estudiante, por ultimo agrega el registro al arreglo de prestamos
@@ -110,6 +116,34 @@ public class registro {
         }else{
             System.out.println("NO existe el registro para poder pagar");
         }
+    }
+    
+    /**
+     * Metodo que devuelve la diferencia de dias entre la fecha actual y una que es enviada 
+     * como String
+     * @param fecha
+     * @return 
+     * @throws java.text.ParseException 
+     */
+    public int diferenciaDias(String date) throws ParseException{
+        
+        SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");//se establece el formato
+        //String date = "2019-07-31";//string con la fecha
+        int dia = fecha.parse(date).getDate();//obtener el dia del mes
+        int mes = fecha.parse(date).getMonth()+1;//Obtener el mes del año, se suma 1, porque lee de 0 a 11
+        int year = fecha.parse(date).getYear()+ 1900;//Obtener el año, lee desde 1900
+    
+        Calendar hoy = Calendar.getInstance();//Fecha hoy
+        int tdy = hoy.get(Calendar.DAY_OF_YEAR);//Obtener dia del año de hoy
+        Calendar calendario = Calendar.getInstance();
+        calendario.set(year, mes-1, dia);//Fecha del String, se resta 1 a mes por que java lee de 0 a 11
+        int day = calendario.get(Calendar.DAY_OF_YEAR);//Dia del año del string
+        int dias = day - tdy+1;//calcula la diferencia de dias
+        if(dias<0){
+            dias=-dias;
+        }
+    
+        return dias;
     }
     
     
