@@ -405,9 +405,9 @@ public class VentanaLibros extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se han llenado todos los campos, para registrar necesitas llenar todo los datos");
 
         }else{
-//            ventana.tx.datos.nuevoLibro(jTextField9.getText(), jTextField8.getText(), jTextField7.getText(), Integer.parseInt(jTextField10.getText()));
-//            ventana.tx.datos.libros.get(ventana.tx.datos.libros.size()-1).editorial=jTextField12.getText();
-//            ventana.tx.datos.libros.get(ventana.tx.datos.libros.size()-1).fechaPublicacion=jTextField11.getText();
+            ventana.tx.datos.nuevoLibro(jTextField9.getText(), jTextField8.getText(), jTextField7.getText(), Integer.parseInt(jTextField10.getText()));
+            ventana.tx.datos.libros.get(ventana.tx.datos.libros.size()-1).editorial=jTextField12.getText();
+            ventana.tx.datos.libros.get(ventana.tx.datos.libros.size()-1).fechaPublicacion=jTextField11.getText();
             JOptionPane.showMessageDialog(null, "listo");
         }
     }//GEN-LAST:event_jButton2ActionPerformed

@@ -355,8 +355,8 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se han llenado todos los campos, para registrar necesitas llenar todo los datos");
 
         }else{
-            //ventana.tx.datos.nuevoEstudiante(jTextField2.getText(), Integer.parseInt(jTextField1.getText()), Integer.parseInt(jTextField3.getText()), "Fecha");
-            //ventana.tx.datos.estudiantes.get(ventana.tx.datos.estudiantes.size()-1).fechaNacimiento=jTextField4.getText();
+            ventana.tx.datos.nuevoEstudiante(jTextField2.getText(), Integer.parseInt(jTextField1.getText()), Integer.parseInt(jTextField3.getText()), "Fecha");
+            ventana.tx.datos.estudiantes.get(ventana.tx.datos.estudiantes.size()-1).fechaNacimiento=jTextField4.getText();
  
             JOptionPane.showMessageDialog(null, "listo");
         }
