@@ -24,9 +24,9 @@ public class Ventana extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.tx = tx;
         if(tx.cargado){
-            jButton1.setEnabled(false);
+            BuscarDoc.setEnabled(false);
         }else{
-            jButton1.setEnabled(true);
+            BuscarDoc.setEnabled(true);
         }
     }
 
@@ -34,19 +34,19 @@ public class Ventana extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        Titulos = new javax.swing.JLabel();
         BtnPrestamos = new javax.swing.JButton();
         BtnLibros = new javax.swing.JButton();
         BtnEstudiantes = new javax.swing.JButton();
         BtnReportes = new javax.swing.JButton();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
-        jButton1 = new javax.swing.JButton();
+        EscritorioPanel = new javax.swing.JDesktopPane();
+        BuscarDoc = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Biblioteca - CUNOC");
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Biblioteca Centro Universitario de Occidente CUNOC");
+        Titulos.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Titulos.setText("Biblioteca Centro Universitario de Occidente CUNOC");
 
         BtnPrestamos.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         BtnPrestamos.setText("Prestamos");
@@ -80,10 +80,10 @@ public class Ventana extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("...");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        BuscarDoc.setText("...");
+        BuscarDoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                BuscarDocActionPerformed(evt);
             }
         });
 
@@ -95,11 +95,11 @@ public class Ventana extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(Titulos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
-                        .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(EscritorioPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -110,14 +110,14 @@ public class Ventana extends javax.swing.JFrame {
                                     .addComponent(BtnPrestamos, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(103, 103, 103))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(BuscarDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(Titulos, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
@@ -129,11 +129,11 @@ public class Ventana extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(BtnReportes, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(EscritorioPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addContainerGap(33, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)
+                        .addComponent(BuscarDoc)
                         .addContainerGap())))
         );
 
@@ -169,7 +169,7 @@ public class Ventana extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_BtnEstudiantesActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void BuscarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BuscarDocActionPerformed
         // TODO add your handling code here:
         //FileNameExtensionFilter filtro = new FileNameExtensionFilter(".*TXT", "txt");
         //choose.setFileFilter(filtro);
@@ -179,19 +179,19 @@ public class Ventana extends javax.swing.JFrame {
             File fichero = choose.getSelectedFile();
             System.out.println(fichero.getAbsolutePath());
             tx.leer(fichero.getAbsolutePath());
-            jButton1.setEnabled(false);
+            BuscarDoc.setEnabled(false);
             tx.datos.verificarPrestamos();
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_BuscarDocActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnEstudiantes;
     private javax.swing.JButton BtnLibros;
     private javax.swing.JButton BtnPrestamos;
     private javax.swing.JButton BtnReportes;
-    public javax.swing.JButton jButton1;
-    private javax.swing.JDesktopPane jDesktopPane1;
-    private javax.swing.JLabel jLabel1;
+    public javax.swing.JButton BuscarDoc;
+    private javax.swing.JDesktopPane EscritorioPanel;
+    private javax.swing.JLabel Titulos;
     // End of variables declaration//GEN-END:variables
 
     public void cargarLibros(String codigo){
