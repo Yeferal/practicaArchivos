@@ -64,6 +64,11 @@ public class VentanaPrestamos extends javax.swing.JFrame {
         });
 
         jButton2.setText("Buscar");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Buscando Libro...");
 
@@ -81,6 +86,11 @@ public class VentanaPrestamos extends javax.swing.JFrame {
         jLabel5.setText("Fecha");
 
         jButton4.setText("Confirmar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -269,6 +279,25 @@ public class VentanaPrestamos extends javax.swing.JFrame {
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        String codigo = jTextField1.getText();
+        int carnet = Integer.parseInt(jTextField2.getText());
+        ventana.cargarPrestamos(codigo, carnet);
+        
+        System.out.println(ventana.tmpP.getCarnetE());
+        System.out.println(ventana.tmpP.codigoL);
+        System.out.println(ventana.tmpP.cantidad);
+        System.out.println(ventana.tmpP.fechaPrestamo);
+        System.out.println(ventana.tmpP.fechaPrestamo2);
+        System.out.println(ventana.tmpP.fechaPrestamo3);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

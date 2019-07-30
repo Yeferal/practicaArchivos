@@ -1,5 +1,7 @@
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
@@ -11,6 +13,9 @@ public class Ventana extends javax.swing.JFrame {
     VentanaLibros ventanaLibros = new VentanaLibros(this);
     VentanaReportes ventanaReportes = new VentanaReportes(this);
     Leer_txt tx;
+    Libro tmpL;
+    Estudiante tmpE;
+    Prestamo tmpP;
     
         
     public Ventana(Leer_txt tx) {
@@ -153,7 +158,8 @@ public class Ventana extends javax.swing.JFrame {
         // TODO add our handling code here:
         System.out.println("Prestamos");
         ventanaPrestamos.setVisible(true);
-        this.setVisible(false);
+        this.setVisible(false); 
+        
     }//GEN-LAST:event_BtnPrestamosActionPerformed
 
     private void BtnEstudiantesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEstudiantesActionPerformed
@@ -174,10 +180,7 @@ public class Ventana extends javax.swing.JFrame {
             System.out.println(fichero.getAbsolutePath());
             tx.leer(fichero.getAbsolutePath());
             jButton1.setEnabled(false);
-            tx.datos.ver();
-            tx.datos.verEstudiantes();
-            tx.datos.verPrestamos();
-            tx.GuardarObjetos();
+            tx.datos.verificarPrestamos();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -190,4 +193,38 @@ public class Ventana extends javax.swing.JFrame {
     private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
+
+    public void cargarLibros(String codigo){
+        try{
+           ObjectInputStream cargarLibro = new ObjectInputStream(new FileInputStream("libros/"+codigo+".bin"));
+           tmpL = (Libro) cargarLibro.readObject();
+           cargarLibro.close();
+            
+        }catch(Exception e){
+            System.out.println("no cargo");
+        }    
+    }
+
+    public void cargarEstudiantes(int carnet){
+        try{
+           ObjectInputStream cargarEstudiante = new ObjectInputStream(new FileInputStream("estudiantes/"+carnet+".bin"));
+           tmpE = (Estudiante) cargarEstudiante.readObject();
+           cargarEstudiante.close();
+            
+        }catch(Exception e){
+            System.out.println("no cargo");
+        }   
+    }
+    
+    public void cargarPrestamos(String codigo, int carnet){
+        try{
+           ObjectInputStream cargarPrestamo = new ObjectInputStream(new FileInputStream("prestamos/"+codigo+carnet+".bin"));
+           tmpP = (Prestamo) cargarPrestamo.readObject();
+           cargarPrestamo.close();
+            
+        }catch(Exception e){
+            System.out.println("no cargo");
+        }   
+    }
 }
+

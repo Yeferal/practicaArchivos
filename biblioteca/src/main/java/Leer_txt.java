@@ -10,7 +10,7 @@ public class Leer_txt {
     
     String ruta = "practica1.txt";
     boolean cargado;
-    Datos datos = new Datos();
+    Datos datos = new Datos(this);
     registro registros = new registro(this);
     
     public Leer_txt(){
@@ -20,38 +20,33 @@ public class Leer_txt {
     
     public void leer(String fichero){
         
-        try {
+        try{
             FileReader tx = new FileReader(fichero);
             BufferedReader br = new BufferedReader(tx);
             
             for (int i = 0; i < 60; i++) {
                 
-                        switch (br.readLine()) {
-            case "LIBRO":
-                libro();
-                datoslibro(br.readLine(),br.readLine(),br.readLine(),br.readLine());                            
-                break;
-            case "ESTUDIANTE":
-                estudiante();
-                datosEstudiante(br.readLine(),br.readLine(),br.readLine());  
-                break;
-            case "PRESTAMO":
-                prestamo();
-                datosPrestamo(br.readLine(),br.readLine(),br.readLine());
-                break;
-            default:
-               
-        }              
+                switch (br.readLine()) {
+                    case "LIBRO":
+                        libro();
+                        datoslibro(br.readLine(),br.readLine(),br.readLine(),br.readLine());                            
+                        break;
+                    case "ESTUDIANTE":
+                        estudiante();
+                        datosEstudiante(br.readLine(),br.readLine(),br.readLine());  
+                        break;
+                    case "PRESTAMO":
+                        prestamo();
+                        datosPrestamo(br.readLine(),br.readLine(),br.readLine());
+                        break;
+                    default:
+                        break; 
+                }              
             }  
-            datos.ver();
-            br.close();
-            
-            
-        } catch (Exception e) {
+            br.close();     
+        }catch(Exception e){
             
         }
-        datos.ver();
-        
     }
 
     
@@ -78,6 +73,43 @@ public class Leer_txt {
     }
     
     //Metodo para serializar los objetos, libros, estudiantes, prestamos
+    public void guardarLibros(String codigo, Libro tmp){
+        String ruta = "libros/"+codigo+".bin";
+        try{
+            ObjectOutputStream guardarLibro = new ObjectOutputStream(new FileOutputStream(ruta));
+            guardarLibro.writeObject(tmp);
+            guardarLibro.close();
+            
+        }catch(Exception e){
+            System.out.println("no guarda libros");
+        }
+    }
+    
+    public void guardarEstudiantes(int carnet, Estudiante tmp){
+        String ruta = "estudiantes/"+carnet+".bin";
+        try{
+            ObjectOutputStream guardarEstudiante = new ObjectOutputStream(new FileOutputStream(ruta));
+            guardarEstudiante.writeObject(tmp);
+            guardarEstudiante.close();
+            
+        }catch(Exception e){
+            System.out.println("no guarda estudiantes");
+        }
+    }
+    
+    public void guardarPrestamos(String codigo, int carnet, Prestamo tmp){
+        String ruta = "prestamos/"+codigo+carnet+".bin";
+        try{
+            ObjectOutputStream guardarPrestamo = new ObjectOutputStream(new FileOutputStream(ruta));
+            guardarPrestamo.writeObject(tmp);
+            guardarPrestamo.close();
+            
+        }catch(Exception e){
+            System.out.println("no guarda prestamos");
+        }
+    }
+    
+    /**
     public void GuardarObjetos(){
         
         try{
@@ -107,6 +139,7 @@ public class Leer_txt {
             System.out.println("no guarda prestamos");
         }
     }
+    
     
     
     public void CargarObjetos() throws FileNotFoundException, IOException{

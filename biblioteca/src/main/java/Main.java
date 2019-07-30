@@ -11,16 +11,16 @@ public class Main {
         //DateFormat formato = new SimpleDateFormat("YYYY-MM-dd");
         //System.out.println(formato.format(new Date()));
         Leer_txt tx = new Leer_txt();
-        tx.CargarObjetos();
+        //tx.CargarObjetos();
         Ventana ventana = new Ventana(tx);
         //tx.datos.verPrestamos();
         
         //tx.generarArchLibros
         
         //tx.datos.verPrestamos();
-        tx.datos.ver();
-        tx.datos.verEstudiantes();
-        tx.datos.verPrestamos();
+        //tx.datos.ver();
+        //tx.datos.verEstudiantes();
+        //tx.datos.verPrestamos();
         //tx.GuardarObjetos();
         
         
