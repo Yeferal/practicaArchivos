@@ -17,6 +17,11 @@ public class VentanaReportes extends javax.swing.JFrame {
     Ventana ventana;
     DefaultTableModel modelo1 = new DefaultTableModel();
     TableRowSorter<TableModel> name1 = new TableRowSorter<TableModel>(modelo1);
+    int moras;
+    int total;
+    int normal;
+    int diass;
+    
     
     public VentanaReportes(Ventana ventana) {
         initComponents();
@@ -56,7 +61,13 @@ public class VentanaReportes extends javax.swing.JFrame {
         cajaDias = new javax.swing.JTextField();
         BtnBuscardias = new javax.swing.JButton();
         scrollEstadistica = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        areaEstdistica = new javax.swing.JTextArea();
+        moraTexto = new javax.swing.JLabel();
+        totalTexto = new javax.swing.JLabel();
+        normalTexto = new javax.swing.JLabel();
+        dineroMORA = new javax.swing.JTextField();
+        normalDInero = new javax.swing.JTextField();
+        totalDinero = new javax.swing.JTextField();
         panelEstCar = new javax.swing.JPanel();
         cajaFiltros = new javax.swing.JTextField();
         filtroEstado = new javax.swing.JComboBox<>();
@@ -135,11 +146,22 @@ public class VentanaReportes extends javax.swing.JFrame {
         dias.setText("Dias: ");
 
         BtnBuscardias.setText("Buscar");
+        BtnBuscardias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnBuscardiasMouseClicked(evt);
+            }
+        });
 
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        scrollEstadistica.setViewportView(jTextArea1);
+        areaEstdistica.setEditable(false);
+        areaEstdistica.setColumns(20);
+        areaEstdistica.setRows(5);
+        scrollEstadistica.setViewportView(areaEstdistica);
+
+        moraTexto.setText("Mora");
+
+        totalTexto.setText("TOTAL");
+
+        normalTexto.setText("Normal");
 
         javax.swing.GroupLayout panelEstadisticaLayout = new javax.swing.GroupLayout(panelEstadistica);
         panelEstadistica.setLayout(panelEstadisticaLayout);
@@ -148,24 +170,49 @@ public class VentanaReportes extends javax.swing.JFrame {
             .addGroup(panelEstadisticaLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelEstadisticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(scrollEstadistica)
+                    .addGroup(panelEstadisticaLayout.createSequentialGroup()
+                        .addComponent(scrollEstadistica)
+                        .addContainerGap())
                     .addGroup(panelEstadisticaLayout.createSequentialGroup()
                         .addComponent(dias, javax.swing.GroupLayout.PREFERRED_SIZE, 48, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cajaDias, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(BtnBuscardias, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 345, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGroup(panelEstadisticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panelEstadisticaLayout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(moraTexto)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(normalTexto)
+                                .addGap(63, 63, 63)
+                                .addComponent(totalTexto))
+                            .addGroup(panelEstadisticaLayout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(dineroMORA, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(43, 43, 43)
+                                .addComponent(normalDInero, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(36, 36, 36)
+                                .addComponent(totalDinero, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE)))
+                        .addGap(72, 72, 72))))
         );
         panelEstadisticaLayout.setVerticalGroup(
             panelEstadisticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelEstadisticaLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(panelEstadisticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dias, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cajaDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnBuscardias, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(panelEstadisticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelEstadisticaLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(panelEstadisticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(dias, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(cajaDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BtnBuscardias, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(dineroMORA, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(normalDInero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(totalDinero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panelEstadisticaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(moraTexto)
+                        .addComponent(totalTexto)
+                        .addComponent(normalTexto)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(scrollEstadistica, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
                 .addContainerGap())
@@ -331,8 +378,9 @@ public class VentanaReportes extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnBuscarActionPerformed
 
     private void subVentanaReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subVentanaReportMouseClicked
-        areasMora.removeAll();
-        areaHOY.removeAll();
+
+        areaHOY.setText("");
+        areasMora.setText("");
         try {
             // TODO add your handling code here:
             mora();
@@ -342,20 +390,38 @@ public class VentanaReportes extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_subVentanaReportMouseClicked
 
+    private void BtnBuscardiasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnBuscardiasMouseClicked
+            
+        areaEstdistica.setText("");
+        moras=0;
+        total=0;
+        diass=0;
+        try {
+            // TODO add your handling code here:
+            Estadistica(Integer.parseInt(cajaDias.getText()));
+        } catch (ParseException ex) {
+            Logger.getLogger(VentanaReportes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_BtnBuscardiasMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBuscar;
     private javax.swing.JButton BtnBuscardias;
     private javax.swing.JTextField CajasCaarreraDias;
+    private javax.swing.JTextArea areaEstdistica;
     private javax.swing.JTextArea areaHOY;
     private javax.swing.JTextArea areasMora;
     private javax.swing.JTextField cajaDias;
     private javax.swing.JTextField cajaFiltros;
     private javax.swing.JLabel dias;
+    private javax.swing.JTextField dineroMORA;
     private javax.swing.JComboBox<String> filtroDatos;
     private javax.swing.JComboBox<String> filtroEstado;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JLabel moraTexto;
+    private javax.swing.JTextField normalDInero;
+    private javax.swing.JLabel normalTexto;
     private javax.swing.JPanel panelEstCar;
     private javax.swing.JPanel panelEstadistica;
     private javax.swing.JPanel panelHOY;
@@ -367,6 +433,8 @@ public class VentanaReportes extends javax.swing.JFrame {
     private javax.swing.JTabbedPane subVentanaReport;
     private javax.swing.JTable tablapor;
     private javax.swing.JLabel textoDias;
+    private javax.swing.JTextField totalDinero;
+    private javax.swing.JLabel totalTexto;
     // End of variables declaration//GEN-END:variables
 
 public void carnetTodos(int carnet){
@@ -459,6 +527,12 @@ public void carreraDias(int carrera, int dias) throws ParseException{
         areasMora.append(System.getProperty("line.separator"));
         //areasMora.append(System.getProperty("line.separator"));
     }
+        public void agregarfilaEstadistica(String linea){
+        areaEstdistica.append(linea); 
+        areaEstdistica.append(System.getProperty("line.separator"));
+        areaEstdistica.append(System.getProperty("line.separator"));
+        
+        }
 
     public void mora() throws ParseException{
         ventana.tx.datos.register=ventana.arregloPrestamos();
@@ -498,11 +572,66 @@ public void carreraDias(int carrera, int dias) throws ParseException{
                 ventana.cargarLibros(ventana.tx.datos.register.get(i).codigoL);
                 agregarfilaHOY(ventana.tmpL.titulo+"\nCarnet: "+ventana.tx.datos.register.get(i).carnetE+"\nDias: "+ventana.registros.diferenciaDias11(ventana.tx.datos.register.get(i).fechaPrestamo3, true));
 
-        
             }
         }
     }
 
-
+public void Estadistica(int dias) throws ParseException{
+    
+        ventana.tx.datos.register=ventana.arregloPrestamos();
+        ventana.tx.datos.libros=ventana.arregloLibros();
+        ventana.tx.datos.estudiantes=ventana.arregloEstudiantes();
+    for(int j = 0; j < ventana.tx.datos.estudiantes.size(); j++){
+            
+                for (int i = 0; i < ventana.tx.datos.register.size(); i++) {
+                if(ventana.tx.datos.register.get(i).fechaPrestamo!=null && ventana.tx.datos.register.get(i).carnetE==ventana.tx.datos.estudiantes.get(j).carnet && ventana.registros.diferenciaDias(ventana.tx.datos.register.get(i).fechaPrestamo)<dias){
+                    if(ventana.tx.datos.register.get(i).estado){
+                        diass=ventana.registros.diferenciaDias(ventana.tx.datos.register.get(i).fechaPrestamo);
+                           if((diass>3)){
+                               normal= (3)*5;
+                           }
+                           diass=diass-3;
+                        normal= (diass)*5;
+                        if((diass)>0){
+                            moras=(diass)*10;
+                        }
+                        agregarfilaEstadistica(ventana.tmpL.titulo+"\nCarnet: "+ventana.tx.datos.register.get(i).carnetE);
+                    if(ventana.tx.datos.register.get(i).fechaPrestamo!=null && ventana.tx.datos.register.get(i).estado2 && ventana.registros.diferenciaDias(ventana.tx.datos.register.get(i).fechaPrestamo2)<dias){
+                        diass=ventana.registros.diferenciaDias(ventana.tx.datos.register.get(i).fechaPrestamo2);
+                           if((diass>3)){
+                               normal= (3)*5;
+                           }
+                           diass=diass-3;
+                        normal= (diass)*5;
+                        if((diass)>0){
+                            moras=(diass)*10;
+                        }
+                        agregarfilaEstadistica(ventana.tmpL.titulo+"\nCarnet: "+ventana.tx.datos.register.get(i).carnetE);
+                    }else{}
+                    
+                    if(ventana.tx.datos.register.get(i).fechaPrestamo!=null && ventana.tx.datos.register.get(i).estado3 && ventana.registros.diferenciaDias(ventana.tx.datos.register.get(i).fechaPrestamo3)<dias){
+                        
+                        diass=ventana.registros.diferenciaDias(ventana.tx.datos.register.get(i).fechaPrestamo);
+                           if((diass>3)){
+                               normal= (3)*5;
+                           }
+                           diass=diass-3;
+                        normal= (diass)*5;
+                        if((diass)>0){
+                            moras=(diass)*10;
+                        }
+                        
+                        agregarfilaEstadistica(ventana.tmpL.titulo+"\nCarnet: "+ventana.tx.datos.register.get(i).carnetE);
+                    }else{} 
+                }else{}
+            }else{}
+        
+           }
+                total=moras+normal;
+    }
+    dineroMORA.setText(Integer.toString(moras));
+    normalDInero.setText(Integer.toString(normal));
+    totalDinero.setText(Integer.toString(total));
+}
 
 }
