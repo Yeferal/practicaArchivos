@@ -84,21 +84,21 @@ public class VentanaLibros extends javax.swing.JFrame {
             for (int i = 0; i < ventana.tx.datos.libros.size(); i++) {
                 System.out.println("no agrego codigo: "+dato);
                 if(dato.equals(ventana.tx.datos.libros.get(i).codigo)){
-                    agregarFilaTabla(ventana.tx.datos.libros.get(i).codigo, ventana.tx.datos.libros.get(i).autor,ventana.tx.datos.libros.get(i).titulo, ventana.tx.datos.libros.get(i).cantidad, ventana.tx.datos.libros.get(i).fechaPublicacion, ventana.tx.datos.libros.get(i).editorial,jTable2); 
+                    agregarFilaTabla(ventana.tx.datos.libros.get(i).codigo, ventana.tx.datos.libros.get(i).autor,ventana.tx.datos.libros.get(i).titulo, ventana.tx.datos.libros.get(i).cantidad, ventana.tx.datos.libros.get(i).fechaPublicacion, ventana.tx.datos.libros.get(i).editorial,tablaBuscar); 
                 }
             }
         }else if(filtro=="Nombre"){
             System.out.println("no agrego nombre");
             for (int i = 0; i < ventana.tx.datos.libros.size(); i++) {
                 if(dato.equals(ventana.tx.datos.libros.get(i).titulo)){
-                    agregarFilaTabla(ventana.tx.datos.libros.get(i).codigo, ventana.tx.datos.libros.get(i).autor,ventana.tx.datos.libros.get(i).titulo, ventana.tx.datos.libros.get(i).cantidad, ventana.tx.datos.libros.get(i).fechaPublicacion, ventana.tx.datos.libros.get(i).editorial,jTable2); 
+                    agregarFilaTabla(ventana.tx.datos.libros.get(i).codigo, ventana.tx.datos.libros.get(i).autor,ventana.tx.datos.libros.get(i).titulo, ventana.tx.datos.libros.get(i).cantidad, ventana.tx.datos.libros.get(i).fechaPublicacion, ventana.tx.datos.libros.get(i).editorial,tablaBuscar); 
                 }
             }
         }else if(filtro=="Autor"){
             System.out.println("no agrego autor");
             for (int i = 0; i < ventana.tx.datos.libros.size(); i++) {
                 if(dato.equals(ventana.tx.datos.libros.get(i).autor)){
-                    agregarFilaTabla(ventana.tx.datos.libros.get(i).codigo, ventana.tx.datos.libros.get(i).autor,ventana.tx.datos.libros.get(i).titulo, ventana.tx.datos.libros.get(i).cantidad, ventana.tx.datos.libros.get(i).fechaPublicacion, ventana.tx.datos.libros.get(i).editorial,jTable2); 
+                    agregarFilaTabla(ventana.tx.datos.libros.get(i).codigo, ventana.tx.datos.libros.get(i).autor,ventana.tx.datos.libros.get(i).titulo, ventana.tx.datos.libros.get(i).cantidad, ventana.tx.datos.libros.get(i).fechaPublicacion, ventana.tx.datos.libros.get(i).editorial,tablaBuscar); 
                 }
             }
         }else{
@@ -140,7 +140,7 @@ public class VentanaLibros extends javax.swing.JFrame {
         cajaDato = new javax.swing.JTextField();
         BtnBuscar = new javax.swing.JButton();
         scrollBuscar = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tablaBuscar = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Libros");
@@ -149,6 +149,12 @@ public class VentanaLibros extends javax.swing.JFrame {
         regresarInicio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 regresarInicioActionPerformed(evt);
+            }
+        });
+
+        subVentanaLibros.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                subVentanaLibrosMouseClicked(evt);
             }
         });
 
@@ -293,13 +299,18 @@ public class VentanaLibros extends javax.swing.JFrame {
         });
 
         BtnBuscar.setText("Buscar");
+        BtnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnBuscarMouseClicked(evt);
+            }
+        });
         BtnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnBuscarActionPerformed(evt);
             }
         });
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tablaBuscar.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -307,7 +318,7 @@ public class VentanaLibros extends javax.swing.JFrame {
 
             }
         ));
-        scrollBuscar.setViewportView(jTable2);
+        scrollBuscar.setViewportView(tablaBuscar);
 
         javax.swing.GroupLayout panelBuscarLayout = new javax.swing.GroupLayout(panelBuscar);
         panelBuscar.setLayout(panelBuscarLayout);
@@ -395,7 +406,7 @@ public class VentanaLibros extends javax.swing.JFrame {
 
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
         // TODO add your handling code here:
-        removerTabla(jTable2);
+        removerTabla(tablaBuscar);
         filtrar(filtro.getSelectedItem().toString(), cajaDato.getText());
     }//GEN-LAST:event_BtnBuscarActionPerformed
 
@@ -405,12 +416,40 @@ public class VentanaLibros extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se han llenado todos los campos, para registrar necesitas llenar todo los datos");
 
         }else{
+            if(ventana.tx.registros.buscarLibro(cajaCodigo.getText())){
+                ventana.cargarLibros(cajaCodigo.getText());
+                ventana.tmpL.cantidad=ventana.tmpL.cantidad+Integer.parseInt(cajaCopias.getText());
+                JOptionPane.showMessageDialog(null, "El libro ya existe, se agrego el numero de copias nuevas");
+            }else{
             ventana.tx.datos.nuevoLibro(cajaTitulo.getText(), cajaAutor.getText(), cajaCodigo.getText(), Integer.parseInt(cajaCopias.getText()));
             ventana.tx.datos.libros.get(ventana.tx.datos.libros.size()-1).editorial=cajaEditorial.getText();
             ventana.tx.datos.libros.get(ventana.tx.datos.libros.size()-1).fechaPublicacion=cajaPublicacion.getText();
-            JOptionPane.showMessageDialog(null, "listo");
+            JOptionPane.showMessageDialog(null, "Listo se agrego el nuevo libro con el numero de copias");    
+            }
         }
     }//GEN-LAST:event_BtnConfirmarActionPerformed
+
+    private void subVentanaLibrosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subVentanaLibrosMouseClicked
+        // TODO add your handling code here:
+                removerTabla(tablaTodos);
+        removerTabla(tablaBuscar);
+        ventana.tx.datos.libros.clear();
+        ventana.tx.datos.libros = ventana.arregloLibros();
+        
+        for (int i = 0; i <= (ventana.tx.datos.libros.size()-1); i++) {
+
+            //Se aniade la informacion en este orden a la tabla
+            agregarFilaTabla(ventana.tx.datos.libros.get(i).codigo, ventana.tx.datos.libros.get(i).autor,ventana.tx.datos.libros.get(i).titulo, ventana.tx.datos.libros.get(i).cantidad, ventana.tx.datos.libros.get(i).fechaPublicacion, ventana.tx.datos.libros.get(i).editorial,tablaTodos);
+        }
+        
+        
+    }//GEN-LAST:event_subVentanaLibrosMouseClicked
+
+    private void BtnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnBuscarMouseClicked
+        // TODO add your handling code here:
+                removerTabla(tablaBuscar);
+        filtrar(filtro.getSelectedItem().toString(), cajaDato.getText());
+    }//GEN-LAST:event_BtnBuscarMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Autor;
@@ -431,7 +470,6 @@ public class VentanaLibros extends javax.swing.JFrame {
     private javax.swing.JTextField cajaTitulo;
     private javax.swing.JLabel copias;
     private javax.swing.JComboBox<String> filtro;
-    private javax.swing.JTable jTable2;
     private javax.swing.JPanel panelBuscar;
     private javax.swing.JPanel panelNuevos;
     private javax.swing.JPanel panelTodos;
@@ -439,6 +477,7 @@ public class VentanaLibros extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollBuscar;
     private javax.swing.JScrollPane scrollTodos;
     private javax.swing.JTabbedPane subVentanaLibros;
+    private javax.swing.JTable tablaBuscar;
     private javax.swing.JTable tablaTodos;
     // End of variables declaration//GEN-END:variables
 }
