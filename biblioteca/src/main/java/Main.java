@@ -14,15 +14,13 @@ public class Main {
         Leer_txt tx = new Leer_txt();
         //tx.CargarObjetos();
         Ventana ventana = new Ventana(tx);
-        for(int i=0; i<ventana.arregloEstudiantes().size(); i++){
-            System.out.println(ventana.arregloEstudiantes().get(i).getCarnet());
-            System.out.println(ventana.arregloEstudiantes().get(i).getLimite());
-        }
+        System.out.println(ventana.registros.fechaHoy());
+        System.out.println(ventana.registros.diferenciaDias("2019-07-30"));
+        System.out.println(ventana.registros.calcularMonto(ventana.registros.diferenciaDias("2019-07-30")));
+
+
         
-        for (int i=0; i<ventana.arregloPrestamos().size(); i++) {
-            System.out.println(ventana.arregloPrestamos().get(i).getCarnetE());
-            System.out.println(ventana.arregloPrestamos().get(i).getCantidad());
-        }
+        
         
 
         //tx.datos.verPrestamos();

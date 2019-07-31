@@ -1,4 +1,9 @@
 
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+
 /**
  *
  * @author cesar31
@@ -6,11 +11,18 @@
 public class VentanaPrestamos extends javax.swing.JFrame {
 
     Ventana ventana;
+    String codigoL;
+    int carnetE;
+    int dias;
     
     public VentanaPrestamos(Ventana ventana) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.ventana = ventana;
+        cajaCarnet.setEditable(false);
+        BtnVerificar.setEnabled(false);
+        BtnConfirmar.setEnabled(false);
+        BtnAceptar.setEnabled(false);
     }
 
     /**
@@ -32,8 +44,7 @@ public class VentanaPrestamos extends javax.swing.JFrame {
         carnet = new javax.swing.JLabel();
         cajaCarnet = new javax.swing.JTextField();
         BtnVerificar = new javax.swing.JButton();
-        txtFecha = new javax.swing.JLabel();
-        fecha = new javax.swing.JLabel();
+        txtInformacion = new javax.swing.JLabel();
         BtnConfirmar = new javax.swing.JButton();
         panelDevolver = new javax.swing.JPanel();
         tCodigo = new javax.swing.JLabel();
@@ -42,7 +53,6 @@ public class VentanaPrestamos extends javax.swing.JFrame {
         cajaTCarnet = new javax.swing.JTextField();
         BtnCalcular = new javax.swing.JButton();
         Pagar = new javax.swing.JLabel();
-        dinero = new javax.swing.JLabel();
         BtnAceptar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -81,10 +91,6 @@ public class VentanaPrestamos extends javax.swing.JFrame {
             }
         });
 
-        txtFecha.setText("Fecha Devolucion:");
-
-        fecha.setText("Fecha");
-
         BtnConfirmar.setText("Confirmar");
         BtnConfirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,23 +107,21 @@ public class VentanaPrestamos extends javax.swing.JFrame {
                 .addGroup(panelPrestarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(textoBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelPrestarLayout.createSequentialGroup()
-                        .addGroup(panelPrestarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(panelPrestarLayout.createSequentialGroup()
-                                .addComponent(codigo)
-                                .addGap(18, 18, 18)
-                                .addComponent(cajaCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(BtnBuscar))
-                            .addGroup(panelPrestarLayout.createSequentialGroup()
-                                .addComponent(carnet)
-                                .addGap(18, 18, 18)
-                                .addComponent(cajaCarnet, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(BtnVerificar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(panelPrestarLayout.createSequentialGroup()
-                                .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(panelPrestarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtInformacion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(panelPrestarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(panelPrestarLayout.createSequentialGroup()
+                                    .addComponent(codigo)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(cajaCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(BtnBuscar))
+                                .addGroup(panelPrestarLayout.createSequentialGroup()
+                                    .addComponent(carnet)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(cajaCarnet, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(BtnVerificar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 8, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(panelPrestarLayout.createSequentialGroup()
@@ -144,9 +148,7 @@ public class VentanaPrestamos extends javax.swing.JFrame {
                     .addComponent(cajaCarnet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnVerificar))
                 .addGap(18, 18, 18)
-                .addGroup(panelPrestarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(txtInformacion, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(BtnConfirmar)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -171,19 +173,25 @@ public class VentanaPrestamos extends javax.swing.JFrame {
             }
         });
 
-        Pagar.setText("Total a Pagar:");
-
-        dinero.setText("Q.");
-
         BtnAceptar.setText("Aceptar");
+        BtnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnAceptarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelDevolverLayout = new javax.swing.GroupLayout(panelDevolver);
         panelDevolver.setLayout(panelDevolverLayout);
         panelDevolverLayout.setHorizontalGroup(
             panelDevolverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelDevolverLayout.createSequentialGroup()
+                .addGap(106, 106, 106)
+                .addComponent(BtnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(114, Short.MAX_VALUE))
+            .addGroup(panelDevolverLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(panelDevolverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Pagar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(panelDevolverLayout.createSequentialGroup()
                         .addGroup(panelDevolverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -193,17 +201,8 @@ public class VentanaPrestamos extends javax.swing.JFrame {
                             .addComponent(cajaTCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
                             .addComponent(cajaTCarnet))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BtnCalcular, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(panelDevolverLayout.createSequentialGroup()
-                        .addComponent(Pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(dinero, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 68, Short.MAX_VALUE)))
+                        .addComponent(BtnCalcular, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(panelDevolverLayout.createSequentialGroup()
-                .addGap(106, 106, 106)
-                .addComponent(BtnAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panelDevolverLayout.setVerticalGroup(
             panelDevolverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,9 +221,7 @@ public class VentanaPrestamos extends javax.swing.JFrame {
                         .addGap(37, 37, 37)
                         .addComponent(BtnCalcular, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(18, 18, 18)
-                .addGroup(panelDevolverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(Pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(dinero, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(Pagar, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(BtnAceptar)
                 .addContainerGap(24, Short.MAX_VALUE))
@@ -270,6 +267,22 @@ public class VentanaPrestamos extends javax.swing.JFrame {
 
     private void BtnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnVerificarActionPerformed
         // TODO add your handling code here:
+        
+        if(!cajaCarnet.getText().equals("")){
+            carnetE = Integer.parseInt(cajaCarnet.getText());
+            if(ventana.registros.buscarEstudiante(carnetE)){
+                ventana.cargarEstudiantes(carnetE);
+                if(ventana.tmpE.getLimite()<3){
+                    BtnConfirmar.setEnabled(true);
+                    txtInformacion.setText("Presione confirmar para completar");
+                }else{
+                    txtInformacion.setText("Tiene 3 libros en posesion");
+                }
+            }else{
+                txtInformacion.setText("Carnet no registrado o invalido");
+            }
+            
+        }
     }//GEN-LAST:event_BtnVerificarActionPerformed
 
     private void cajaTCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cajaTCodigoActionPerformed
@@ -278,20 +291,64 @@ public class VentanaPrestamos extends javax.swing.JFrame {
 
     private void BtnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCalcularActionPerformed
         // TODO add your handling code here:
+        if(!cajaTCodigo.getText().equals("") && !cajaTCarnet.getText().equals("")){
+            if(ventana.registros.buscarRegistro(cajaTCodigo.getText(), Integer.parseInt(cajaTCarnet.getText()))){
+                ventana.cargarPrestamos(cajaTCodigo.getText(), Integer.parseInt(cajaCarnet.getText()));
+                if(ventana.tmpP.getCantidad()>0){
+                    codigoL = cajaTCodigo.getText();
+                    carnetE = Integer.parseInt(cajaTCarnet.getText());
+                    ventana.cargarPrestamos(codigoL, carnetE);
+                     BtnAceptar.setEnabled(true);
+                    try {
+                         hacerCalculos();
+                    }catch (ParseException ex) {
+                        Logger.getLogger(VentanaPrestamos.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }else{
+                   Pagar.setText("Deudas ya cubieras"); 
+                }
+            }else{
+                Pagar.setText("Carnet y/o codigo equivocados");
+            }
+        }else{
+            Pagar.setText("Ingrese un carnet y un codigo");
+        }
+        
     }//GEN-LAST:event_BtnCalcularActionPerformed
 
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
         // TODO add your handling code here:
-        
+        if(!cajaCodigo.getText().equals("")){
+                
+            if(ventana.registros.buscarLibro(cajaCodigo.getText())){
+                if(ventana.registros.LibrosEnexistencia(cajaCodigo.getText())>0){
+                    prestarLibro();
+                }else{
+                   cajaCodigo.setText("");
+                   textoBuscar.setText("Libro no disponible"); 
+                }
+            }else{
+                cajaCodigo.setText("");
+                textoBuscar.setText("El libro no existe en la biblioteca");
+            }
+        }else{
+            textoBuscar.setText("Ingrese el codigo del libro");
+        }
     }//GEN-LAST:event_BtnBuscarActionPerformed
 
     private void BtnConfirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConfirmarActionPerformed
         // TODO add your handling code here:
-        String codigo = cajaCodigo.getText();
-        int carnet = Integer.parseInt(cajaCarnet.getText());
-        ventana.cargarEstudiantes(carnet);
-        System.out.println(ventana.tmpE.getLimite());
+        operacionesPrestamo();
     }//GEN-LAST:event_BtnConfirmarActionPerformed
+
+    private void BtnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAceptarActionPerformed
+        try {
+            // TODO add your handling code here:
+            operacionesDevolucion();
+        } catch (ParseException ex) {
+            Logger.getLogger(VentanaPrestamos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_BtnAceptarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnAceptar;
@@ -306,8 +363,6 @@ public class VentanaPrestamos extends javax.swing.JFrame {
     private javax.swing.JTextField cajaTCodigo;
     private javax.swing.JLabel carnet;
     private javax.swing.JLabel codigo;
-    private javax.swing.JLabel dinero;
-    private javax.swing.JLabel fecha;
     private javax.swing.JPanel panelDevolver;
     private javax.swing.JPanel panelPrestar;
     private javax.swing.JButton regresarInicio;
@@ -315,6 +370,104 @@ public class VentanaPrestamos extends javax.swing.JFrame {
     private javax.swing.JLabel tCarnet;
     private javax.swing.JLabel tCodigo;
     private javax.swing.JLabel textoBuscar;
-    private javax.swing.JLabel txtFecha;
+    private javax.swing.JLabel txtInformacion;
     // End of variables declaration//GEN-END:variables
+
+    public void prestarLibro(){
+
+        textoBuscar.setText("Copias disponibles: "+ventana.registros.LibrosEnexistencia(cajaCodigo.getText()));
+        codigoL = cajaCodigo.getText();
+        cajaCarnet.setEditable(true);
+        BtnVerificar.setEnabled(true);
+    }
+    
+    public void operacionesPrestamo(){
+        ventana.cargarLibros(codigoL);
+        ventana.tmpL.cantidad--;
+        ventana.tx.guardarLibros(codigoL, ventana.tmpL);
+        
+        ventana.cargarEstudiantes(carnetE);
+        ventana.tmpE.limite++;
+        ventana.tx.guardarEstudiantes(carnetE, ventana.tmpE);
+        
+        if(ventana.registros.buscarRegistro(codigoL, carnetE)){
+            ventana.cargarPrestamos(codigoL, carnetE);
+            ventana.tmpP.cantidad++;
+            if(ventana.tmpP.cantidad==2){
+                ventana.tmpP.estado2 = true;
+                ventana.tmpP.setFechaPrestamo2(ventana.registros.fechaHoy());
+            }else if(ventana.tmpP.cantidad==3){
+                ventana.tmpP.estado3 = true;
+                ventana.tmpP.setFechaPrestamo3(ventana.registros.fechaHoy());
+            }
+            ventana.tx.guardarPrestamos(codigoL, carnetE, ventana.tmpP);
+        }else{
+            Prestamo tmp = new Prestamo(carnetE, codigoL, ventana.registros.fechaHoy());
+            ventana.tx.guardarPrestamos(codigoL, carnetE, tmp);
+        }
+        cajaCodigo.setText("");
+        cajaCarnet.setText("");
+        cajaCarnet.setEditable(false);
+        BtnVerificar.setEnabled(false);
+        BtnConfirmar.setEnabled(false);
+        
+        txtInformacion.setText("Prestamo completado");
+        codigoL = null;
+        carnetE = 0;
+    }
+    
+    public void hacerCalculos() throws ParseException{
+                        
+        if(ventana.tmpP.getCantidad()==3){
+            dias = ventana.registros.diferenciaDias(ventana.tmpP.fechaPrestamo3);
+            ventana.tmpP.montoAPagar = ventana.registros.calcularMonto(ventana.registros.diferenciaDias((ventana.tmpP.fechaPrestamo3)));
+            Pagar.setText("El monto total a pagar es: "+ventana.tmpP.montoAPagar);
+        }
+        if(ventana.tmpP.getCantidad()==2){
+            dias = ventana.registros.diferenciaDias(ventana.tmpP.fechaPrestamo2);
+            ventana.tmpP.montoAPagar = ventana.registros.calcularMonto(ventana.registros.diferenciaDias((ventana.tmpP.fechaPrestamo2)));
+            Pagar.setText("El monto total a pagar es: "+ventana.tmpP.montoAPagar);
+        }
+        if(ventana.tmpP.getCantidad()==1){
+            dias = ventana.registros.diferenciaDias(ventana.tmpP.fechaPrestamo);
+            ventana.tmpP.montoAPagar = ventana.registros.calcularMonto(ventana.registros.diferenciaDias((ventana.tmpP.fechaPrestamo)));
+            Pagar.setText("El monto total a pagar es: "+ventana.tmpP.montoAPagar);
+        }
+    }
+    
+    public void operacionesDevolucion() throws ParseException{
+        ventana.cargarLibros(codigoL);
+        ventana.tmpL.cantidad++;
+        ventana.tx.guardarLibros(codigoL, ventana.tmpL);
+        
+        ventana.cargarEstudiantes(carnetE);
+        ventana.tmpE.limite--;
+        ventana.tx.guardarEstudiantes(carnetE, ventana.tmpE);
+        
+        ventana.cargarPrestamos(codigoL, carnetE);
+        ventana.tmpP.cantidad--;
+        if(ventana.tmpP.getCantidad() == 2){
+            ventana.tmpP.montoAPagar = ventana.registros.calcularMonto(ventana.registros.diferenciaDias(ventana.tmpP.fechaPrestamo3));
+            ventana.tmpP.fechaPrestamo3 = null;
+            ventana.tmpP.estado3 = false;
+        }
+        if(ventana.tmpP.getCantidad() == 1){
+            ventana.tmpP.montoAPagar = ventana.registros.calcularMonto(ventana.registros.diferenciaDias(ventana.tmpP.fechaPrestamo2));
+            ventana.tmpP.fechaPrestamo2 = null;
+            ventana.tmpP.estado2 = false;
+        }
+        if(ventana.tmpP.getCantidad() ==0 ){
+            ventana.tmpP.montoAPagar = ventana.registros.calcularMonto(ventana.registros.diferenciaDias(ventana.tmpP.fechaPrestamo));
+                    
+            ventana.tmpP.fechaPrestamo = null;
+            ventana.tmpP.estado = false;
+        }
+        ventana.tx.guardarPrestamos(codigoL, carnetE, ventana.tmpP);
+        cajaTCodigo.setText("");
+        cajaTCarnet.setText("");
+        codigoL = null;
+        carnetE = 0;
+        BtnConfirmar.setEnabled(false);
+        
+    }
 }

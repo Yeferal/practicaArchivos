@@ -33,6 +33,8 @@ public class Leer_txt {
                 
                 switch (br.readLine()) {
                     case "LIBRO":
+                        libro();
+
                         tituloNombreFecha=br.readLine();
                         autorCarreraCodigo=br.readLine();
                         carnetCodigolibro=br.readLine();
@@ -83,8 +85,6 @@ public class Leer_txt {
     }
     //Verifica si cumple con los parametrso de una linea para libros
     public boolean vdatoslibros(String titulo, String autor, String codigo, String candidad){
-
-
         if(titulo.substring(0, 7).equals("TITULO:") && autor.substring(0, 6).equals("AUTOR:") && codigo.substring(0, 7).equals("CODIGO:") && candidad.substring(0, 9).equals("CANTIDAD:")){
             return true;
         }else{
@@ -103,7 +103,6 @@ public class Leer_txt {
     }
     //Verifica si cumple con los parametrso de una linea para Pretamos
     public boolean vdatosPrestamos(String codigo, String carnet, String fecha){
-
         if(codigo.substring(0, 12).equals("CODIGOLIBRO:") && carnet.substring(0, 7).equals("CARNET:") && fecha.substring(0, 6).equals("FECHA:") ){
             return true;
         }else{

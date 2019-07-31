@@ -85,6 +85,15 @@ public class registro {
         }
     }
     
+    public boolean buscarRegistro(String codigo, int carnet){
+        File archivo = new File("prestamos/"+codigo+carnet+".bin");
+        if(archivo.exists()){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
     /*Yefer
     Realiza el registro, y le resta uno al libro disponible y suma 1 al limite
     del estudiante, por ultimo agrega el registro al arreglo de prestamos
@@ -146,7 +155,7 @@ public class registro {
     /**
      * Metodo que devuelve la diferencia de dias entre la fecha actual y una que es enviada 
      * como String
-     * @param fecha
+     * @param date
      * @return 
      * @throws java.text.ParseException 
      */
@@ -163,12 +172,43 @@ public class registro {
         Calendar calendario = Calendar.getInstance();
         calendario.set(year, mes-1, dia);//Fecha del String, se resta 1 a mes por que java lee de 0 a 11
         int day = calendario.get(Calendar.DAY_OF_YEAR);//Dia del año del string
-        int dias = day - tdy+1;//calcula la diferencia de dias
+        int dias = tdy - day + 1;//calcula la diferencia de dias
         if(dias<0){
             dias=-dias;
         }
     
         return dias;
+    }
+    
+    public String fechaHoy(){
+        
+        Calendar hoy = Calendar.getInstance();
+        int day = hoy.get(Calendar.DAY_OF_MONTH);
+        int month = hoy.get(Calendar.MONTH)+1;
+        int year = hoy.get(Calendar.YEAR);
+        String fecha = year+"-"+month+"-"+day;
+        if(day<=9 && month<=9){
+            fecha = year+"-0"+month+"-0"+day;
+        }
+        if(day<=9 && month>9){
+            fecha = year+"-"+month+"-0"+day;
+        }
+        if(day>9 && month<=9){
+            fecha = year+"-0"+month+"-"+day;
+        }
+        
+        return fecha;
+    }
+    
+    public int calcularMonto(int dias){
+        int monto;
+        if(dias<=3){
+            monto = 5*dias;
+            return monto;
+        }else{
+            monto = 15 + 10*(dias-3);
+            return monto;
+        }
     }
    
     
