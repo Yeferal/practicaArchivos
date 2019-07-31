@@ -1,7 +1,6 @@
 
 
 import java.io.*;
-import java.util.ArrayList;
 /**
  *
  * @author yefer
@@ -29,7 +28,7 @@ public class Leer_txt {
             FileReader tx = new FileReader(fichero);
             BufferedReader br = new BufferedReader(tx);
 
-            for (int i = 0; i < 60; i++) {
+            for (int i = 0; i < 120; i++) {
                 
                 switch (br.readLine()) {
                     case "LIBRO":
