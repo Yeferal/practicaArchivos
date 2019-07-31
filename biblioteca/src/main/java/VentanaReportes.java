@@ -1,4 +1,10 @@
 
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
+
+
 /**
  *
  * @author cesar31
@@ -6,13 +12,22 @@
 public class VentanaReportes extends javax.swing.JFrame {
 
     Ventana ventana;
+    DefaultTableModel modelo1 = new DefaultTableModel();
+    TableRowSorter<TableModel> name1 = new TableRowSorter<TableModel>(modelo1);
     
     public VentanaReportes(Ventana ventana) {
         initComponents();
         this.setLocationRelativeTo(null);
         this.ventana = ventana;
+        
     }
 
+    public void agregarFilaTabla(String nombre){
+        String [] elementos = new String[4];
+        elementos[0]=nombre;
+        modelo1.addRow(elementos);
+        tablapor.setModel(modelo1);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -41,6 +56,8 @@ public class VentanaReportes extends javax.swing.JFrame {
         filtroEstado = new javax.swing.JComboBox<>();
         BtnBuscar = new javax.swing.JButton();
         filtroDatos = new javax.swing.JComboBox<>();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tablapor = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Reportes");
@@ -64,14 +81,14 @@ public class VentanaReportes extends javax.swing.JFrame {
             panelHOYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelHOYLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollHOy, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
+                .addComponent(scrollHOy, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelHOYLayout.setVerticalGroup(
             panelHOYLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelHOYLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollHOy, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+                .addComponent(scrollHOy, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -88,14 +105,14 @@ public class VentanaReportes extends javax.swing.JFrame {
             panelMoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMoraLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollMOra, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
+                .addComponent(scrollMOra, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
                 .addContainerGap())
         );
         panelMoraLayout.setVerticalGroup(
             panelMoraLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelMoraLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(scrollMOra, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
+                .addComponent(scrollMOra, javax.swing.GroupLayout.DEFAULT_SIZE, 529, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -124,7 +141,7 @@ public class VentanaReportes extends javax.swing.JFrame {
                         .addComponent(cajaDias, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(BtnBuscardias, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 103, Short.MAX_VALUE)))
+                        .addGap(0, 345, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         panelEstadisticaLayout.setVerticalGroup(
@@ -136,7 +153,7 @@ public class VentanaReportes extends javax.swing.JFrame {
                     .addComponent(cajaDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnBuscardias, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(scrollEstadistica, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                .addComponent(scrollEstadistica, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -150,8 +167,23 @@ public class VentanaReportes extends javax.swing.JFrame {
         });
 
         BtnBuscar.setText("Buscar");
+        BtnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtnBuscarMouseClicked(evt);
+            }
+        });
 
         filtroDatos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Carnet", "Carrera" }));
+
+        tablapor.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+
+            }
+        ));
+        jScrollPane1.setViewportView(tablapor);
 
         javax.swing.GroupLayout panelEstCarLayout = new javax.swing.GroupLayout(panelEstCar);
         panelEstCar.setLayout(panelEstCarLayout);
@@ -159,13 +191,16 @@ public class VentanaReportes extends javax.swing.JFrame {
             panelEstCarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panelEstCarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(filtroDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cajaFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(filtroEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BtnBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(panelEstCarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 628, Short.MAX_VALUE)
+                    .addGroup(panelEstCarLayout.createSequentialGroup()
+                        .addComponent(filtroDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cajaFiltros)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(filtroEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         panelEstCarLayout.setVerticalGroup(
@@ -177,7 +212,9 @@ public class VentanaReportes extends javax.swing.JFrame {
                     .addComponent(filtroEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(filtroDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(300, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         subVentanaReport.addTab("Por Estudiante/Carrera", panelEstCar);
@@ -218,6 +255,13 @@ public class VentanaReportes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_filtroEstadoActionPerformed
 
+    private void BtnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnBuscarMouseClicked
+        if(){
+            
+        }
+        
+    }//GEN-LAST:event_BtnBuscarMouseClicked
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBuscar;
     private javax.swing.JButton BtnBuscardias;
@@ -226,6 +270,7 @@ public class VentanaReportes extends javax.swing.JFrame {
     private javax.swing.JLabel dias;
     private javax.swing.JComboBox<String> filtroDatos;
     private javax.swing.JComboBox<String> filtroEstado;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;
@@ -238,5 +283,32 @@ public class VentanaReportes extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollHOy;
     private javax.swing.JScrollPane scrollMOra;
     private javax.swing.JTabbedPane subVentanaReport;
+    private javax.swing.JTable tablapor;
     // End of variables declaration//GEN-END:variables
+
+public void carnetTodos(int carnet){
+    ventana.tx.datos.register=ventana.arregloPrestamos();
+    
+    for (int i = 0; i < ventana.tx.datos.register.size(); i++) {
+        if(ventana.tx.datos.register.get(i).carnetE==carnet){
+            if(ventana.tx.datos.register.get(i).estado){
+                agregarFilaTabla(ventana.tx.datos.register.get(i).codigoL);
+                if(ventana.tx.datos.register.get(i).estado2){
+                    agregarFilaTabla(ventana.tx.datos.register.get(i).codigoL);
+                }
+                if(ventana.tx.datos.register.get(i).estado3){
+                    agregarFilaTabla(ventana.tx.datos.register.get(i).codigoL);
+                }
+            }
+        }
+        
+    }
+    
+}
+
+
+
+
+
+
 }

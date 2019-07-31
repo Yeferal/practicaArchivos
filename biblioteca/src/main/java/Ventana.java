@@ -31,6 +31,8 @@ public class Ventana extends javax.swing.JFrame {
             BuscarDoc.setEnabled(true);
         }
         lll();
+        
+        
     }
     public void lll(){
         ventanaErrores.BtnRegrasar.addActionListener((e) -> {

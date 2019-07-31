@@ -362,7 +362,7 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
 
     private void BtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrarActionPerformed
         // TODO add your handling code here:
-        if((cajaNombre.getText().equals("")) || (cajaCarnet.getText().equals("")) || (cajaCarrera.getText().equals("")) || (cajaNacimiento.getText().equals(""))){
+        if((cajaNombre.getText().equals("")) || (cajaCarnet.getText().equals("")) || (cajaCarrera.getText().equals(""))){
             JOptionPane.showMessageDialog(null, "No se han llenado todos los campos, para registrar necesitas llenar todo los datos");
             
         }else{
