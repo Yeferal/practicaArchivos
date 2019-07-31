@@ -152,6 +152,11 @@ public class VentanaReportes extends javax.swing.JFrame {
         BtnBuscar.setText("Buscar");
 
         filtroDatos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Carnet", "Carrera" }));
+        filtroDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filtroDatosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panelEstCarLayout = new javax.swing.GroupLayout(panelEstCar);
         panelEstCar.setLayout(panelEstCarLayout);
@@ -217,6 +222,10 @@ public class VentanaReportes extends javax.swing.JFrame {
     private void filtroEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroEstadoActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_filtroEstadoActionPerformed
+
+    private void filtroDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroDatosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_filtroDatosActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBuscar;

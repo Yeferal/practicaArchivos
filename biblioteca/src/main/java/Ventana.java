@@ -19,6 +19,8 @@ public class Ventana extends javax.swing.JFrame {
     Estudiante tmpE;
     Prestamo tmpP;
     errores ventanaErrores = new errores(tx);
+    registro registros = new registro(tx, this);
+    
         
     public Ventana(Leer_txt tx) {
         initComponents();
@@ -289,6 +291,7 @@ public class Ventana extends javax.swing.JFrame {
         }   
     }
     
+    //Metodo que devuelve un arraylist con todos los prestamos
     public ArrayList<Prestamo> arregloPrestamos(){
         File carpetaL = new File("prestamos");
         String[] nombresAr = carpetaL.list();

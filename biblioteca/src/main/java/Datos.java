@@ -66,19 +66,18 @@ public class Datos {
             }
         }
         
+        
+        
         for(int z=0; z<register.size(); z++){
-            System.out.println(register.get(z).getCodigoL());
-            System.out.println(register.get(z).getCarnetE());
-            System.out.println(register.get(z).getFechaPrestamo());
-            System.out.println(register.get(z).getFechaPrestamo2());
-            System.out.println(register.get(z).getFechaPrestamo3());
-            System.out.println(register.get(z).getCantidad());
+            
             
             tx.guardarPrestamos(register.get(z).getCodigoL(), register.get(z).getCarnetE(), register.get(z));
 
         }
-        register.clear();
     }
+    
+    
+    
     
     /**
     public void ver(){

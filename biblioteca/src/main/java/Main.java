@@ -12,9 +12,6 @@ public class Main {
         //DateFormat formato = new SimpleDateFormat("YYYY-MM-dd");
         //System.out.println(formato.format(new Date()));
         Leer_txt tx = new Leer_txt();
-        //System.out.println(tx.registros.buscarEstudiante(200812345));
-        //System.out.println(tx.registros.buscarLibro("101-AAA"));
-        //System.out.println("Diferencia: "+tx.registros.diferenciaDias("2019-03-25"));
         //tx.CargarObjetos();
         Ventana ventana = new Ventana(tx);
         //tx.datos.verPrestamos();
