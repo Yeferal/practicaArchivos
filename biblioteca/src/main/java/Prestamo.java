@@ -112,7 +112,8 @@ public class Prestamo implements Serializable {
     }
     
     public String toString(){
-        String mensaje = "Carnet: "+carnetE+" Libro: "+codigoL+" Fecha: "+fechaPrestamo;
+        String mensaje = "Carnet: "+carnetE+" Libro: "+codigoL+" Fecha: "+fechaPrestamo+
+                "\nFecha2: "+fechaPrestamo2+" Fecha3: "+fechaPrestamo3+" Limite: "+cantidad;
         return mensaje;
     }
 }
