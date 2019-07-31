@@ -45,7 +45,7 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
     }
     
     private void ordenarEstudiante(){
-                Estudiante aux;
+        Estudiante aux;
         for (int i = 0; i < (ventana.tx.datos.estudiantes.size()-1); i++) {
             for (int j = 0; j < (ventana.tx.datos.estudiantes.size()-1); j++) {
                 if(ventana.tx.datos.estudiantes.get(j).carnet>ventana.tx.datos.estudiantes.get(j+1).carnet){
@@ -136,6 +136,12 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
         regresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 regresarActionPerformed(evt);
+            }
+        });
+
+        subventana.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                subventanaMouseClicked(evt);
             }
         });
 
@@ -271,6 +277,11 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
         });
 
         BTnBuscar.setText("Buscar");
+        BTnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BTnBuscarMouseClicked(evt);
+            }
+        });
         BTnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BTnBuscarActionPerformed(evt);
@@ -351,14 +362,18 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
 
     private void BtnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegistrarActionPerformed
         // TODO add your handling code here:
-        if((cajaNombre.getText().equals("")) || (cajaCarnet.getText().equals("")) || (cajaCarrera.getText().equals("")) || (cajaNacimiento.getText().equals(""))){
+        if((cajaNombre.getText().equals("")) || (cajaCarnet.getText().equals("")) || (cajaCarrera.getText().equals(""))){
             JOptionPane.showMessageDialog(null, "No se han llenado todos los campos, para registrar necesitas llenar todo los datos");
-
+            
         }else{
-            ventana.tx.datos.nuevoEstudiante(cajaNombre.getText(), Integer.parseInt(cajaCarnet.getText()), Integer.parseInt(cajaCarrera.getText()), "Fecha");
-            ventana.tx.datos.estudiantes.get(ventana.tx.datos.estudiantes.size()-1).fechaNacimiento=cajaNacimiento.getText();
- 
-            JOptionPane.showMessageDialog(null, "listo");
+            if(!ventana.registros.buscarEstudiante(Integer.parseInt(cajaCarnet.getText()))){
+                ventana.tx.datos.nuevoEstudiante(cajaNombre.getText(), Integer.parseInt(cajaCarnet.getText()), Integer.parseInt(cajaCarrera.getText()), cajaNacimiento.getText());
+                //ventana.tx.datos.estudiantes.get(ventana.tx.datos.estudiantes.size()-1).fechaNacimiento=cajaNacimiento.getText();
+                JOptionPane.showMessageDialog(null, "listo");
+            } else {
+                JOptionPane.showMessageDialog(null, "Existe un estudiante con el mismo numero de carnet");
+            }
+   
         }
     }//GEN-LAST:event_BtnRegistrarActionPerformed
 
@@ -371,7 +386,7 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
         // TODO add your handling code here:
         removerTabla(tablaTodos);
         ordenarEstudiante();
-        ascendente();           
+        ascendente(); 
     }//GEN-LAST:event_BtnAscendenteActionPerformed
 
     private void BtnDescendenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDescendenteActionPerformed
@@ -388,6 +403,27 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
         filtrar(filtros.getSelectedItem().toString(), cajaCapturar.getText());
 
     }//GEN-LAST:event_BTnBuscarActionPerformed
+
+    private void subventanaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subventanaMouseClicked
+        // TODO add your handling code here:
+        removerTabla(tablaTodos);
+        removerTabla(tablaBuscar);
+        ventana.tx.datos.estudiantes.clear();
+        ventana.tx.datos.estudiantes = ventana.arregloEstudiantes();
+        
+        for (int i = 0; i <= (ventana.tx.datos.estudiantes.size()-1); i++) {
+
+            //Se aniade la informacion en este orden a la tabla
+            agregarFilaTabla(ventana.tx.datos.estudiantes.get(i).carnet,ventana.tx.datos.estudiantes.get(i).nombre,ventana.tx.datos.estudiantes.get(i).carrera,ventana.tx.datos.estudiantes.get(i).fechaNacimiento,tablaTodos);    
+        }
+        
+    }//GEN-LAST:event_subventanaMouseClicked
+
+    private void BTnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTnBuscarMouseClicked
+        // TODO add your handling code here:
+        removerTabla(tablaBuscar);
+        filtrar(filtros.getSelectedItem().toString(), cajaCapturar.getText());
+    }//GEN-LAST:event_BTnBuscarMouseClicked
 
     /**
      * @param args the command line arguments

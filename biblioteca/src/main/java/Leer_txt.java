@@ -23,10 +23,20 @@ public class Leer_txt {
         String carnetCodigolibro;
         String cantidad;
         String autorCarreraCodigo;
+        int contador=0;
         try{
             FileReader tx = new FileReader(fichero);
             BufferedReader br = new BufferedReader(tx);
             
+            long lNumeroLineas = 0;
+            /**
+            while (br.readLine()!=null) {
+            lNumeroLineas++;
+            }
+            **/
+            
+            System.out.println(lNumeroLineas);
+            //br.reset();
             for (int i = 0; i < 60; i++) {
                 
                 switch (br.readLine()) {
@@ -36,18 +46,23 @@ public class Leer_txt {
                         autorCarreraCodigo=br.readLine();
                         carnetCodigolibro=br.readLine();
                         cantidad=br.readLine();
-                        
+                        contador= contador+4;
                         if(vdatoslibros(tituloNombreFecha,autorCarreraCodigo,carnetCodigolibro,cantidad)){
+                            libro();
+                            
                             datoslibro(tituloNombreFecha,autorCarreraCodigo,carnetCodigolibro,cantidad);
                         }
                         
                         break;
                     case "ESTUDIANTE":
-                        estudiante();
+                        //estudiante();
                         tituloNombreFecha=br.readLine();
                         autorCarreraCodigo=br.readLine();
                         carnetCodigolibro=br.readLine();
+                        contador= contador+4;
                         if(vdatosEstudiante(tituloNombreFecha,autorCarreraCodigo,carnetCodigolibro)){
+                            estudiante();
+                            
                             datosEstudiante(tituloNombreFecha,autorCarreraCodigo,carnetCodigolibro);
                         }else{
                             
@@ -55,18 +70,20 @@ public class Leer_txt {
                          
                         break;
                     case "PRESTAMO":
-                        prestamo();
+                        //prestamo();
                         tituloNombreFecha=br.readLine();
                         autorCarreraCodigo=br.readLine();
                         carnetCodigolibro=br.readLine();
+                        contador= contador+4;
                         if(vdatosPrestamos(tituloNombreFecha,autorCarreraCodigo,carnetCodigolibro)){
+                            prestamo();
                             datosPrestamo(tituloNombreFecha,autorCarreraCodigo,carnetCodigolibro);
                         }
                         
                         break;
                     default:
-                        error.agregarfila("Error con dato desconocodo, no se agrego un dato verifique la estructura del documento");
-                        break; 
+                        error.agregarfila("Error con dato desconocodo, no se agrego un dato verifique la estructura del documento"+"\nel error se encuentra en la fila: "+contador);
+                        break;
                 }              
             }  
             br.close();     

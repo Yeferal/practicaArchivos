@@ -20,6 +20,7 @@ public class Datos {
     //Metodo para crear nuevoe estudiante, despues de leer practica1.txt
     public void nuevoEstudiante(String nombre, int carnet, int carrera, String fecha){
         Estudiante es =  new Estudiante(carnet, nombre, carrera);
+        es.fechaNacimiento=fecha;
         tx.guardarEstudiantes(carnet, es);
         estudiantes.add(es);
         System.out.println(es.toString());
