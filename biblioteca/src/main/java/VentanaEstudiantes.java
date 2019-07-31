@@ -370,6 +370,10 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
                 ventana.tx.datos.nuevoEstudiante(cajaNombre.getText(), Integer.parseInt(cajaCarnet.getText()), Integer.parseInt(cajaCarrera.getText()), cajaNacimiento.getText());
                 //ventana.tx.datos.estudiantes.get(ventana.tx.datos.estudiantes.size()-1).fechaNacimiento=cajaNacimiento.getText();
                 JOptionPane.showMessageDialog(null, "listo");
+                cajaCarnet.setText("");
+                cajaCarrera.setText("");
+                cajaNombre.setText("");
+                cajaNacimiento.setText("");
             } else {
                 JOptionPane.showMessageDialog(null, "Existe un estudiante con el mismo numero de carnet");
             }

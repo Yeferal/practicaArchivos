@@ -27,20 +27,11 @@ public class Leer_txt {
         try{
             FileReader tx = new FileReader(fichero);
             BufferedReader br = new BufferedReader(tx);
-            
-            long lNumeroLineas = 0;
- 
-            while (br.readLine()!=null) {
-            lNumeroLineas++;
-}
-            
-            System.out.println(lNumeroLineas);
-            br.reset();
-            for (int i = 0; i < lNumeroLineas; i++) {
+
+            for (int i = 0; i < 60; i++) {
                 
                 switch (br.readLine()) {
                     case "LIBRO":
-                        //libro();
                         tituloNombreFecha=br.readLine();
                         autorCarreraCodigo=br.readLine();
                         carnetCodigolibro=br.readLine();
@@ -54,7 +45,6 @@ public class Leer_txt {
                         
                         break;
                     case "ESTUDIANTE":
-                        //estudiante();
                         tituloNombreFecha=br.readLine();
                         autorCarreraCodigo=br.readLine();
                         carnetCodigolibro=br.readLine();
@@ -69,7 +59,6 @@ public class Leer_txt {
                          
                         break;
                     case "PRESTAMO":
-                        //prestamo();
                         tituloNombreFecha=br.readLine();
                         autorCarreraCodigo=br.readLine();
                         carnetCodigolibro=br.readLine();

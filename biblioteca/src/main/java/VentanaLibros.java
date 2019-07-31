@@ -420,10 +420,22 @@ public class VentanaLibros extends javax.swing.JFrame {
                 ventana.cargarLibros(cajaCodigo.getText());
                 ventana.tmpL.cantidad=ventana.tmpL.cantidad+Integer.parseInt(cajaCopias.getText());
                 JOptionPane.showMessageDialog(null, "El libro ya existe, se agrego el numero de copias nuevas");
+                cajaAutor.setText("");
+                cajaCodigo.setText("");
+                cajaCopias.setText("");
+                cajaEditorial.setText("");
+                cajaTitulo.setText("");
+                cajaPublicacion.setText("");
             }else{
             ventana.tx.datos.nuevoLibro(cajaTitulo.getText(), cajaAutor.getText(), cajaCodigo.getText(), Integer.parseInt(cajaCopias.getText()));
             ventana.tx.datos.libros.get(ventana.tx.datos.libros.size()-1).editorial=cajaEditorial.getText();
             ventana.tx.datos.libros.get(ventana.tx.datos.libros.size()-1).fechaPublicacion=cajaPublicacion.getText();
+                            cajaAutor.setText("");
+                cajaCodigo.setText("");
+                cajaCopias.setText("");
+                cajaEditorial.setText("");
+                cajaTitulo.setText("");
+                cajaPublicacion.setText("");
             JOptionPane.showMessageDialog(null, "Listo se agrego el nuevo libro con el numero de copias");    
             }
         }

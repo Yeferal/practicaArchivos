@@ -163,6 +163,12 @@ public class VentanaReportes extends javax.swing.JFrame {
 
         normalTexto.setText("Normal");
 
+        dineroMORA.setEditable(false);
+
+        normalDInero.setEditable(false);
+
+        totalDinero.setEditable(false);
+
         javax.swing.GroupLayout panelEstadisticaLayout = new javax.swing.GroupLayout(panelEstadistica);
         panelEstadistica.setLayout(panelEstadisticaLayout);
         panelEstadisticaLayout.setHorizontalGroup(
