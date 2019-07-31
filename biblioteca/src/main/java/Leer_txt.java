@@ -17,7 +17,8 @@ public class Leer_txt {
         
         //leer(ruta);
     }
-    
+    //Revisa si la linea del archivo es correcta si si verifica las lineas siguientes para crear un
+    //archivo dependiendo del tipo
     public void leer(String fichero){
         String tituloNombreFecha;
         String carnetCodigolibro;
@@ -80,7 +81,7 @@ public class Leer_txt {
         }
         error.setVisible(true);
     }
-    
+    //Verifica si cumple con los parametrso de una linea para libros
     public boolean vdatoslibros(String titulo, String autor, String codigo, String candidad){
 
 
@@ -91,7 +92,7 @@ public class Leer_txt {
             return false;
         }
     }
-    
+    //Verifica si cumple con los parametrso de una linea para Estudiantes
     public boolean vdatosEstudiante(String carnet, String nombre, String carrera){
         if(carnet.substring(0, 7).equals("CARNET:") && nombre.substring(0, 7).equals("NOMBRE:") && carrera.substring(0, 8).equals("CARRERA:") ){
             return true;
@@ -100,7 +101,7 @@ public class Leer_txt {
             return false;
         }
     }
-    
+    //Verifica si cumple con los parametrso de una linea para Pretamos
     public boolean vdatosPrestamos(String codigo, String carnet, String fecha){
 
         if(codigo.substring(0, 12).equals("CODIGOLIBRO:") && carnet.substring(0, 7).equals("CARNET:") && fecha.substring(0, 6).equals("FECHA:") ){
@@ -111,11 +112,6 @@ public class Leer_txt {
         }
     }
     
-    
-    
-    
-
-    
     public void libro(){ 
         System.out.println("es Libro");
     }
@@ -125,7 +121,7 @@ public class Leer_txt {
     public void prestamo(){
         System.out.println("es prestamo");
     }
-    
+    //evia los parametrso para crear una archivo en la clase datos
     public void datoslibro(String title, String autor, String codigo, String candidad){
 
         if(title.substring(0, 5).equals("TITULO")){
@@ -135,10 +131,11 @@ public class Leer_txt {
         }
         datos.nuevoLibro(title.substring(7), autor.substring(6), codigo.substring(7), Integer.parseInt(candidad.substring(9)));   
     }
+    //evia los parametrso para crear una archivo en la clase datos
     public void datosEstudiante(String carnet, String nombre, String carrera){
         datos.nuevoEstudiante(nombre.substring(7),Integer.parseInt(carnet.substring(7)), Integer.parseInt(carrera.substring(8)), " null");
     }
-    
+    //evia los parametrso para crear una archivo en la clase datos
     public void datosPrestamo(String codigo, String carnet, String fecha){
         datos.nuevoPrestamo(codigo.substring(12), Integer.parseInt(carnet.substring(7)), fecha.substring(6));
     }
@@ -155,7 +152,7 @@ public class Leer_txt {
             System.out.println("no guarda libros");
         }
     }
-    
+    //GUarda los estudiantes en archivos de objetos con el nombre como carnet
     public void guardarEstudiantes(int carnet, Estudiante tmp){
         String ruta = "estudiantes/"+carnet+".bin";
         try{
@@ -167,7 +164,7 @@ public class Leer_txt {
             System.out.println("no guarda estudiantes");
         }
     }
-    
+    //GUarda los prestamos en archivos de objetos con el nombre como codigo mas carnet
     public void guardarPrestamos(String codigo, int carnet, Prestamo tmp){
         String ruta = "prestamos/"+codigo+carnet+".bin";
         try{
@@ -180,161 +177,4 @@ public class Leer_txt {
         }
     }
     
-    /**
-    public void GuardarObjetos(){
-        
-        try{
-            ObjectOutputStream guardarLibros = new ObjectOutputStream(new FileOutputStream("libros.txt"));
-            guardarLibros.writeObject(datos.libros);
-            guardarLibros.close();
-            
-        }catch(Exception e){
-            System.out.println("no guarda libros");
-        }
-        
-        try{
-            ObjectOutputStream guardarEstudiantes = new ObjectOutputStream(new FileOutputStream("estudiantes.txt"));
-            guardarEstudiantes.writeObject(datos.estudiantes);
-            guardarEstudiantes.close();
-            
-        }catch(Exception e){
-            System.out.println("no guarda estudiantes");
-        }
-        
-        try{
-            ObjectOutputStream guardarPrestamos = new ObjectOutputStream(new FileOutputStream("prestamos.txt"));
-            guardarPrestamos.writeObject(datos.register);
-            guardarPrestamos.close();
-            
-        }catch(Exception e){
-            System.out.println("no guarda prestamos");
-        }
-    }
-    
-    
-    
-    public void CargarObjetos() throws FileNotFoundException, IOException{
-        int contador=0;
-        try{
-            ObjectInputStream cargarLibros = new ObjectInputStream(new FileInputStream("libros.txt"));
-            ArrayList<Libro> librosRecuperados = (ArrayList<Libro>) cargarLibros.readObject();
-            cargarLibros.close();
-            
-            for(int i=0; i<librosRecuperados.size(); i++){
-                datos.libros.add(librosRecuperados.get(i)); 
-            }
-            
-        }catch(Exception e){
-            contador++;
-            System.out.println(contador);
-        }
-        
-        try{
-            ObjectInputStream cargarEstudiantes = new ObjectInputStream(new FileInputStream("estudiantes.txt"));
-            ArrayList<Estudiante> estudiantesRecuperados = (ArrayList<Estudiante>) cargarEstudiantes.readObject();
-            cargarEstudiantes.close();
-            
-            for(int i=0; i<estudiantesRecuperados.size(); i++){
-                datos.estudiantes.add(estudiantesRecuperados.get(i));
-            }
-        }catch(Exception e){
-            contador++;
-            System.out.println(contador);
-        }
-        
-        try{
-            ObjectInputStream cargarPrestamos = new ObjectInputStream(new FileInputStream("prestamos.txt"));
-            ArrayList<Prestamo> prestamosRecuperados = (ArrayList<Prestamo>) cargarPrestamos.readObject();
-            cargarPrestamos.close();
-            
-            for(int i=0; i<prestamosRecuperados.size(); i++){
-                datos.register.add(prestamosRecuperados.get(i));
-            }
-        }catch(Exception e){
-            contador++;
-            System.out.println(contador);
-        }
-        
-        if(contador==0){
-            cargado = true;
-        }
-
-        if(contador>0){
-            cargado = false;
-        }
-
-    }
-         
-    /**
-    public void generarArchLibros(){
-        
-        for (int i = 0; i < datos.libros.size(); i++) {
-            String nombreL="libros/"+datos.libros.get(i).getTitulo()+".bin";
-            File fichero= new File(nombreL);
-            FileOutputStream fil;
-            ObjectOutputStream dat;
-            try {
-                fil = new FileOutputStream(fichero);
-                dat = new ObjectOutputStream(fil);
-                dat.writeObject(datos.libros.get(i));
-                dat.close();
-                
-            } catch (Exception e) {
-                System.out.println("Error");
-            }
-        }
-    }
-    public void leerArchLibros(){
-        for (int i = 0; i < datos.libros.size(); i++) {
-            String nombreL="libros/"+datos.libros.get(i).getTitulo()+".bin";
-            File fichero= new File(nombreL);
-            FileOutputStream fil;
-            ObjectOutputStream dat;
-            try {
-                fil = new FileOutputStream(fichero);
-                dat = new ObjectOutputStream(fil);
-                dat.writeObject(datos.libros.get(i));
-                dat.close();
-                
-            } catch (Exception e) {
-                System.out.println("Error");
-            }
-        }
-    }
-        public void generarArchEstudiantes(){
-        for (int i = 0; i < datos.estudiantes.size(); i++) {
-            String nombreL="estudiantes/"+datos.estudiantes.get(i).carnet+".bin";
-            File fichero= new File(nombreL);
-            FileOutputStream fil;
-            ObjectOutputStream dat;
-            try {
-                fil = new FileOutputStream(fichero);
-                dat = new ObjectOutputStream(fil);
-                dat.writeObject(datos.estudiantes.get(i));
-                dat.close();
-                
-            } catch (Exception e) {
-                System.out.println("Error");
-            }
-        }
-    }
-        
-    public void generarArchPrestamos(){
-        for (int i = 0; i < datos.estudiantes.size(); i++) {
-            String nombreL="prestamos/"+datos.estudiantes.get(i).carnet+".bin";
-            File fichero= new File(nombreL);
-            FileOutputStream fil;
-            ObjectOutputStream dat;
-            try {
-                fil = new FileOutputStream(fichero);
-                dat = new ObjectOutputStream(fil);
-                dat.writeObject(datos.estudiantes.get(i));
-                dat.close();
-                
-            } catch (Exception e) {
-                System.out.println("Error");
-            }
-        }
-    }
-    **/
 }

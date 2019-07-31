@@ -68,8 +68,7 @@ public class Datos {
                 }
             }
         }
-        
-        
+          
         for (int i=0; i<estudiantes.size(); i++) {
             for(int z=0; z<register.size(); z++){
                     if(estudiantes.get(i).getCarnet() == register.get(z).getCarnetE()){
@@ -86,27 +85,4 @@ public class Datos {
             tx.guardarEstudiantes(estudiantes.get(i).getCarnet(), estudiantes.get(i));
         }
     }
-    
-    
-    
-    
-    /**
-    public void ver(){
-        for (int i = 0; i < libros.size(); i++) {
-            System.out.println(libros.get(i).titulo);  
-        }
-    }
-    
-    public void verEstudiantes(){
-        for(int i=0; i<estudiantes.size(); i++){
-            System.out.println(estudiantes.get(i).toString());
-        }
-    }
-    
-    public void verPrestamos(){
-        for(int i=0; i<register.size(); i++){
-            System.out.println(register.get(i).toString());
-        }
-    }
-    * */
 }

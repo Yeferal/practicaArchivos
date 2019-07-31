@@ -12,16 +12,14 @@ public class errores extends javax.swing.JFrame {
 
     //Ventana ventana;
     Leer_txt ventana;
-    /**
-     * Creates new form errores
-     */
+
     public errores(Leer_txt ventana) {
         initComponents();
         areaErrores.setEditable(false); 
         this.ventana=ventana;
         this.setLocationRelativeTo(null);
     }
-    
+//    grega filas al area
     public void agregarfila(String linea){
         areaErrores.append(linea); 
         areaErrores.append(System.getProperty("line.separator"));
@@ -93,7 +91,7 @@ public class errores extends javax.swing.JFrame {
 
     private void BtnRegrasarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnRegrasarActionPerformed
         // TODO add your handling code here:
-        
+        //ocula
         setVisible(false);
     }//GEN-LAST:event_BtnRegrasarActionPerformed
 

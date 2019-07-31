@@ -47,8 +47,9 @@ public class VentanaLibros extends javax.swing.JFrame {
             i-=1;
         }
     }
-    
+    //se ordena el libro
     public void ordenarLibros(){
+        ventana.tx.datos.libros=ventana.arregloLibros();
                 Libro aux;
         for (int i = 0; i < (ventana.tx.datos.libros.size()-1); i++) {
             for (int j = 0; j < (ventana.tx.datos.libros.size()-1); j++) {
@@ -61,6 +62,7 @@ public class VentanaLibros extends javax.swing.JFrame {
        }
 //        tex.datos.libros.sort(code);
     }
+    //ordenar ascendete los libros
     private void ordenarLibrosAscendente(){
         removerTabla(tablaTodos);
         for (int i = 0; i <= (ventana.tx.datos.libros.size()-1); i++) {
@@ -69,7 +71,7 @@ public class VentanaLibros extends javax.swing.JFrame {
             agregarFilaTabla(ventana.tx.datos.libros.get(i).codigo, ventana.tx.datos.libros.get(i).autor,ventana.tx.datos.libros.get(i).titulo, ventana.tx.datos.libros.get(i).cantidad, ventana.tx.datos.libros.get(i).fechaPublicacion, ventana.tx.datos.libros.get(i).editorial,tablaTodos);
         }
     }
-        
+    //ordenar desendete    
     private void ordenarLibrosDescendente(){
         removerTabla(tablaTodos);
         for (int i = (ventana.tx.datos.libros.size()-1); i >= 0; i--) {
@@ -78,7 +80,7 @@ public class VentanaLibros extends javax.swing.JFrame {
              agregarFilaTabla(ventana.tx.datos.libros.get(i).codigo, ventana.tx.datos.libros.get(i).autor,ventana.tx.datos.libros.get(i).titulo, ventana.tx.datos.libros.get(i).cantidad, ventana.tx.datos.libros.get(i).fechaPublicacion, ventana.tx.datos.libros.get(i).editorial,tablaTodos);   
         }
     }
-
+    //identifica el tipo de filtro que se quiere y lo muestra
     private void filtrar(String filtro, String dato){
         if(filtro=="Codigo"){
             for (int i = 0; i < ventana.tx.datos.libros.size(); i++) {

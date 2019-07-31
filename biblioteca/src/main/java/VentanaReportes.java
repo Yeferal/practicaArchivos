@@ -32,7 +32,7 @@ public class VentanaReportes extends javax.swing.JFrame {
         textoDias.setVisible(false);
         
     }
-
+//Limpias las filas de la tabla
     public void agregarFilaTabla(String nombre){
         String [] elementos = new String[1];
         elementos[0]=nombre;
@@ -346,6 +346,7 @@ public class VentanaReportes extends javax.swing.JFrame {
         if(filtroEstado.getSelectedItem().toString().equals("Todos") && filtroDatos.getSelectedItem().toString().equals("Carnet")){
             carnetTodos(Integer.parseInt(cajaFiltros.getText()));
             System.out.println("Si entro");
+            //trata de filtar los datos
         }else if(filtroEstado.getSelectedItem().toString().equals("Actual") && filtroDatos.getSelectedItem().toString().equals("Carnet")){
             try {
                 carnetActual(Integer.parseInt(cajaFiltros.getText()));
@@ -388,7 +389,7 @@ public class VentanaReportes extends javax.swing.JFrame {
         areaHOY.setText("");
         areasMora.setText("");
         try {
-            // TODO add your handling code here:
+            //agrega datos
             mora();
             hoy();
         } catch (ParseException ex) {
@@ -442,7 +443,7 @@ public class VentanaReportes extends javax.swing.JFrame {
     private javax.swing.JTextField totalDinero;
     private javax.swing.JLabel totalTexto;
     // End of variables declaration//GEN-END:variables
-
+//Filtra los carnets
 public void carnetTodos(int carnet){
     ventana.tx.datos.register=ventana.arregloPrestamos();
     ventana.tx.datos.libros=ventana.arregloLibros();
@@ -463,6 +464,7 @@ public void carnetTodos(int carnet){
     }
     
 }
+//me muestra el titulo de los libros
 public String getTituloLibros(String codigo){
 
     for (int i = 0; i < ventana.tx.datos.libros.size(); i++) {
@@ -474,7 +476,7 @@ public String getTituloLibros(String codigo){
     return " ";
     
 }
-
+//Filtra los carnets
 public void carnetActual(int carnet) throws ParseException{
     ventana.tx.datos.register=ventana.arregloPrestamos();
     ventana.tx.datos.libros=ventana.arregloLibros();
@@ -495,6 +497,7 @@ public void carnetActual(int carnet) throws ParseException{
     }
     
 }
+//filtra los dias por carrera
 public void carreraDias(int carrera, int dias) throws ParseException{
         ventana.tx.datos.register=ventana.arregloPrestamos();
         ventana.tx.datos.libros=ventana.arregloLibros();
@@ -520,6 +523,7 @@ public void carreraDias(int carrera, int dias) throws ParseException{
         }
     }     
 }
+//agrega filas a los textarea
     public void agregarfila(String linea){
         areasMora.append(linea); 
         areasMora.append(System.getProperty("line.separator"));
@@ -539,7 +543,7 @@ public void carreraDias(int carrera, int dias) throws ParseException{
         areaEstdistica.append(System.getProperty("line.separator"));
         
         }
-
+//calcula la mora y agrega los que estan en mora
     public void mora() throws ParseException{
         ventana.tx.datos.register=ventana.arregloPrestamos();
         for (int i = 0; i < ventana.tx.datos.register.size(); i++) {
@@ -560,7 +564,7 @@ public void carreraDias(int carrera, int dias) throws ParseException{
             }
         }
 }
-    
+    //muestra lo que se paga en el dia actual
     public void hoy() throws ParseException{
         ventana.tx.datos.register=ventana.arregloPrestamos();
 
@@ -581,12 +585,13 @@ public void carreraDias(int carrera, int dias) throws ParseException{
             }
         }
     }
-
+//filtra las moras y totales y agrega el historial
 public void Estadistica(int dias) throws ParseException{
     
         ventana.tx.datos.register=ventana.arregloPrestamos();
         ventana.tx.datos.libros=ventana.arregloLibros();
         ventana.tx.datos.estudiantes=ventana.arregloEstudiantes();
+        
     for(int j = 0; j < ventana.tx.datos.estudiantes.size(); j++){
             
                 for (int i = 0; i < ventana.tx.datos.register.size(); i++) {

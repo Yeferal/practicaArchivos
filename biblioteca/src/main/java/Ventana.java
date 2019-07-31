@@ -21,7 +21,7 @@ public class Ventana extends javax.swing.JFrame {
     errores ventanaErrores = new errores(tx);
     registro registros = new registro(tx, this);
     
-        
+        //constructor
     public Ventana(Leer_txt tx) {
         initComponents();
         this.setVisible(true);
@@ -36,6 +36,7 @@ public class Ventana extends javax.swing.JFrame {
         
         
     }
+    //regresa la ventana
     public void lll(){
         ventanaErrores.BtnRegrasar.addActionListener((e) -> {
             ventanaErrores.setVisible(false);
@@ -246,7 +247,7 @@ public class Ventana extends javax.swing.JFrame {
         
         return librosR;
     }
-    
+    //varga los libros de manera individual con su codigo
     public void cargarLibros(String codigo){
         try{
            ObjectInputStream cargarLibro = new ObjectInputStream(new FileInputStream("libros/"+codigo+".bin"));
@@ -281,7 +282,7 @@ public class Ventana extends javax.swing.JFrame {
         return estudiantesR;
         
     }
-    
+    //carga estudiantes con el carnet
     public void cargarEstudiantes(int carnet){
         try{
            ObjectInputStream cargarEstudiante = new ObjectInputStream(new FileInputStream("estudiantes/"+carnet+".bin"));
@@ -314,7 +315,7 @@ public class Ventana extends javax.swing.JFrame {
         
         return prestamosR;
     }
-    
+    //carga prestamos con el nombre y carnet
     public void cargarPrestamos(String codigo, int carnet){
         try{
            ObjectInputStream cargarPrestamo = new ObjectInputStream(new FileInputStream("prestamos/"+codigo+carnet+".bin"));

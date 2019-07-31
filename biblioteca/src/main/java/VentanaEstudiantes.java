@@ -43,8 +43,9 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
             i-=1;
         }
     }
-    
+    //Ordenas al estudinate
     private void ordenarEstudiante(){
+        ventana.tx.datos.estudiantes=ventana.arregloEstudiantes();
         Estudiante aux;
         for (int i = 0; i < (ventana.tx.datos.estudiantes.size()-1); i++) {
             for (int j = 0; j < (ventana.tx.datos.estudiantes.size()-1); j++) {
@@ -56,7 +57,7 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
             }
         }
     }
-    
+    //ordena desenddente carnet
     private void descendente(){
         removerTabla(tablaTodos);
                 for (int i = (ventana.tx.datos.estudiantes.size()-1); i >= 0; i--) {
@@ -65,7 +66,7 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
              agregarFilaTabla(ventana.tx.datos.estudiantes.get(i).carnet,ventana.tx.datos.estudiantes.get(i).nombre,ventana.tx.datos.estudiantes.get(i).carrera,ventana.tx.datos.estudiantes.get(i).fechaNacimiento,tablaTodos);   
         }
     }
-    
+    //ordena ascendente carnet
     private void ascendente(){
         removerTabla(tablaTodos);
             for (int i = 0; i <= (ventana.tx.datos.estudiantes.size()-1); i++) {
@@ -74,7 +75,7 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
             agregarFilaTabla(ventana.tx.datos.estudiantes.get(i).carnet,ventana.tx.datos.estudiantes.get(i).nombre,ventana.tx.datos.estudiantes.get(i).carrera,ventana.tx.datos.estudiantes.get(i).fechaNacimiento,tablaTodos);    
         }
     }
-
+    //filtra al estudiante con los datos que se quiere
     private void filtrar(String filtro, String dato){
         if(filtro=="Carnet"){
             for (int i = 0; i < ventana.tx.datos.estudiantes.size(); i++) {
@@ -403,6 +404,7 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
     private void BTnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTnBuscarActionPerformed
         // TODO add your handling code here:
         //BUSCAR
+        ventana.tx.datos.estudiantes=ventana.arregloEstudiantes();
         removerTabla(tablaBuscar);
         filtrar(filtros.getSelectedItem().toString(), cajaCapturar.getText());
 
@@ -425,6 +427,7 @@ public class VentanaEstudiantes extends javax.swing.JFrame {
 
     private void BTnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BTnBuscarMouseClicked
         // TODO add your handling code here:
+        ventana.tx.datos.estudiantes=ventana.arregloEstudiantes();
         removerTabla(tablaBuscar);
         filtrar(filtros.getSelectedItem().toString(), cajaCapturar.getText());
     }//GEN-LAST:event_BTnBuscarMouseClicked
