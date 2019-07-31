@@ -245,9 +245,9 @@ public class VentanaPrestamos extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(6, 6, 6)
                 .addComponent(subPrestamos)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(regresarInicio)
                 .addContainerGap())
         );
@@ -292,8 +292,15 @@ public class VentanaPrestamos extends javax.swing.JFrame {
     private void BtnCalcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCalcularActionPerformed
         // TODO add your handling code here:
         if(!cajaTCodigo.getText().equals("") && !cajaTCarnet.getText().equals("")){
-            if(ventana.registros.buscarRegistro(cajaTCodigo.getText(), Integer.parseInt(cajaTCarnet.getText()))){
-                ventana.cargarPrestamos(cajaTCodigo.getText(), Integer.parseInt(cajaCarnet.getText()));
+                if(ventana.registros.buscarRegistro(cajaTCodigo.getText(), Integer.parseInt(cajaTCarnet.getText()))){
+                    codigoL = cajaTCodigo.getText();
+                    carnetE = Integer.parseInt(cajaTCarnet.getText());
+                try{
+                    ventana.cargarPrestamos(codigoL, carnetE);
+                }catch(Exception e){
+                    
+                    System.out.println("No carga prestamo");
+                }
                 if(ventana.tmpP.getCantidad()>0){
                     codigoL = cajaTCodigo.getText();
                     carnetE = Integer.parseInt(cajaTCarnet.getText());
@@ -348,6 +355,7 @@ public class VentanaPrestamos extends javax.swing.JFrame {
         } catch (ParseException ex) {
             Logger.getLogger(VentanaPrestamos.class.getName()).log(Level.SEVERE, null, ex);
         }
+        BtnConfirmar.setEnabled(false);
     }//GEN-LAST:event_BtnAceptarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -420,17 +428,17 @@ public class VentanaPrestamos extends javax.swing.JFrame {
                         
         if(ventana.tmpP.getCantidad()==3){
             dias = ventana.registros.diferenciaDias(ventana.tmpP.fechaPrestamo3);
-            ventana.tmpP.montoAPagar = ventana.registros.calcularMonto(ventana.registros.diferenciaDias((ventana.tmpP.fechaPrestamo3)));
+            ventana.tmpP.montoAPagar = ventana.registros.calcularMonto(((dias)));
             Pagar.setText("El monto total a pagar es: "+ventana.tmpP.montoAPagar);
         }
         if(ventana.tmpP.getCantidad()==2){
             dias = ventana.registros.diferenciaDias(ventana.tmpP.fechaPrestamo2);
-            ventana.tmpP.montoAPagar = ventana.registros.calcularMonto(ventana.registros.diferenciaDias((ventana.tmpP.fechaPrestamo2)));
+            ventana.tmpP.montoAPagar = ventana.registros.calcularMonto(dias);
             Pagar.setText("El monto total a pagar es: "+ventana.tmpP.montoAPagar);
         }
         if(ventana.tmpP.getCantidad()==1){
             dias = ventana.registros.diferenciaDias(ventana.tmpP.fechaPrestamo);
-            ventana.tmpP.montoAPagar = ventana.registros.calcularMonto(ventana.registros.diferenciaDias((ventana.tmpP.fechaPrestamo)));
+            ventana.tmpP.montoAPagar = ventana.registros.calcularMonto(dias);
             Pagar.setText("El monto total a pagar es: "+ventana.tmpP.montoAPagar);
         }
     }
@@ -447,27 +455,29 @@ public class VentanaPrestamos extends javax.swing.JFrame {
         ventana.cargarPrestamos(codigoL, carnetE);
         ventana.tmpP.cantidad--;
         if(ventana.tmpP.getCantidad() == 2){
-            ventana.tmpP.montoAPagar = ventana.registros.calcularMonto(ventana.registros.diferenciaDias(ventana.tmpP.fechaPrestamo3));
+            ventana.tmpP.montoAPagar = ventana.registros.calcularMonto(dias);
             ventana.tmpP.fechaPrestamo3 = null;
             ventana.tmpP.estado3 = false;
         }
         if(ventana.tmpP.getCantidad() == 1){
-            ventana.tmpP.montoAPagar = ventana.registros.calcularMonto(ventana.registros.diferenciaDias(ventana.tmpP.fechaPrestamo2));
+            ventana.tmpP.montoAPagar = ventana.registros.calcularMonto(dias);
             ventana.tmpP.fechaPrestamo2 = null;
             ventana.tmpP.estado2 = false;
         }
         if(ventana.tmpP.getCantidad() ==0 ){
-            ventana.tmpP.montoAPagar = ventana.registros.calcularMonto(ventana.registros.diferenciaDias(ventana.tmpP.fechaPrestamo));
-                    
+            ventana.tmpP.montoAPagar = ventana.registros.calcularMonto(dias);
             ventana.tmpP.fechaPrestamo = null;
             ventana.tmpP.estado = false;
         }
+        
         ventana.tx.guardarPrestamos(codigoL, carnetE, ventana.tmpP);
         cajaTCodigo.setText("");
         cajaTCarnet.setText("");
         codigoL = null;
         carnetE = 0;
-        BtnConfirmar.setEnabled(false);
+        BtnAceptar.setEnabled(false);
+
+        
         
     }
 }

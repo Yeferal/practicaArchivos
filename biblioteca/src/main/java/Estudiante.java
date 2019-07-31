@@ -58,10 +58,9 @@ public class Estudiante implements Serializable{
             return true;
         }
         
-        
     }
     public String toString(){
-        String mensaje = "Nombre: "+nombre+" Carnet: "+carnet+"Carrera: "+carrera;
+        String mensaje = "Nombre: "+nombre+" Carnet: "+carnet+"Carrera: "+carrera+" limite: "+limite;
         return mensaje;
     } 
 }
