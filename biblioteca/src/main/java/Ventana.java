@@ -199,10 +199,9 @@ public class Ventana extends javax.swing.JFrame {
         int seleccion = choose.showOpenDialog(this);
         if(seleccion == JFileChooser.APPROVE_OPTION){
             File fichero = choose.getSelectedFile();
-            System.out.println(fichero.getAbsolutePath());
             tx.leer(fichero.getAbsolutePath());
-            BuscarDoc.setEnabled(false);
             tx.datos.verificarPrestamos();
+            BuscarDoc.setEnabled(false);
         }
     }//GEN-LAST:event_BuscarDocActionPerformed
 
@@ -285,10 +284,10 @@ public class Ventana extends javax.swing.JFrame {
            ObjectInputStream cargarEstudiante = new ObjectInputStream(new FileInputStream("estudiantes/"+carnet+".bin"));
            tmpE = (Estudiante) cargarEstudiante.readObject();
            cargarEstudiante.close();
-            
+           
         }catch(Exception e){
             System.out.println("no cargo");
-        }   
+        }
     }
     
     //Metodo que devuelve un arraylist con todos los prestamos

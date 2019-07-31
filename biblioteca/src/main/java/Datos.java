@@ -21,6 +21,7 @@ public class Datos {
     public void nuevoEstudiante(String nombre, int carnet, int carrera, String fecha){
         Estudiante es =  new Estudiante(carnet, nombre, carrera);
         tx.guardarEstudiantes(carnet, es);
+        estudiantes.add(es);
         System.out.println(es.toString());
         
     }
@@ -67,12 +68,20 @@ public class Datos {
         }
         
         
+        for (int i=0; i<estudiantes.size(); i++) {
+            for(int z=0; z<register.size(); z++){
+                    if(estudiantes.get(i).getCarnet() == register.get(z).getCarnetE()){
+                    estudiantes.get(i).setLimite(estudiantes.get(i).getLimite() + register.get(z).getCantidad());
+                }
+            }
+        }
         
-        for(int z=0; z<register.size(); z++){
-            
-            
-            tx.guardarPrestamos(register.get(z).getCodigoL(), register.get(z).getCarnetE(), register.get(z));
-
+        for (int i=0; i<register.size(); i++){
+            tx.guardarPrestamos(register.get(i).getCodigoL() ,register.get(i).getCarnetE(), register.get(i));
+        }
+        
+        for(int i=0; i<estudiantes.size(); i++){
+            tx.guardarEstudiantes(estudiantes.get(i).getCarnet(), estudiantes.get(i));
         }
     }
     

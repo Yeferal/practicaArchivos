@@ -150,7 +150,7 @@ public class registro {
     
         return dias;
     }
-    
+   
     
 //    public void ordenarCarnet(){
 //        Estudiante aux;

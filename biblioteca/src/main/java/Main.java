@@ -14,6 +14,17 @@ public class Main {
         Leer_txt tx = new Leer_txt();
         //tx.CargarObjetos();
         Ventana ventana = new Ventana(tx);
+        for(int i=0; i<ventana.arregloEstudiantes().size(); i++){
+            System.out.println(ventana.arregloEstudiantes().get(i).getCarnet());
+            System.out.println(ventana.arregloEstudiantes().get(i).getLimite());
+        }
+        
+        for (int i=0; i<ventana.arregloPrestamos().size(); i++) {
+            System.out.println(ventana.arregloPrestamos().get(i).getCarnetE());
+            System.out.println(ventana.arregloPrestamos().get(i).getCantidad());
+        }
+        
+
         //tx.datos.verPrestamos();
         
         //tx.generarArchLibros
