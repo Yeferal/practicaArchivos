@@ -97,7 +97,27 @@ public class registro {
         
         tex.datos.register.add(presta);
     }
+    public int diferenciaDias11(String date, boolean mora) throws ParseException{
+        
+        SimpleDateFormat fecha = new SimpleDateFormat("yyyy-MM-dd");//se establece el formato
+        //String date = "2019-07-31";//string con la fecha
+        int dia = fecha.parse(date).getDate();//obtener el dia del mes
+        int mes = fecha.parse(date).getMonth()+1;//Obtener el mes del año, se suma 1, porque lee de 0 a 11
+        int year = fecha.parse(date).getYear()+ 1900;//Obtener el año, lee desde 1900
     
+        Calendar hoy = Calendar.getInstance();//Fecha hoy
+        int tdy = hoy.get(Calendar.DAY_OF_YEAR);//Obtener dia del año de hoy
+        Calendar calendario = Calendar.getInstance();
+        calendario.set(year, mes-1, dia);//Fecha del String, se resta 1 a mes por que java lee de 0 a 11
+        int day = calendario.get(Calendar.DAY_OF_YEAR);//Dia del año del string
+        int dias = day - tdy+1;//calcula la diferencia de dias
+        if(dias<0 && !mora){
+            dias=-dias;
+        }
+    
+        return dias;
+    }
+            
     public void devolucion(){
         
     }
@@ -151,6 +171,7 @@ public class registro {
         return dias;
     }
    
+
     
 //    public void ordenarCarnet(){
 //        Estudiante aux;

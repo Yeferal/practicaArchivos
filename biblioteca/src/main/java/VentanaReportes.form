@@ -60,6 +60,9 @@
       </Events>
     </Component>
     <Container class="javax.swing.JTabbedPane" name="subVentanaReport">
+      <Events>
+        <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="subVentanaReportMouseClicked"/>
+      </Events>
 
       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout"/>
       <SubComponents>
@@ -100,7 +103,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTextArea" name="jTextArea2">
+                <Component class="javax.swing.JTextArea" name="areaHOY">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="columns" type="int" value="20"/>
@@ -148,7 +151,7 @@
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
               <SubComponents>
-                <Component class="javax.swing.JTextArea" name="jTextArea3">
+                <Component class="javax.swing.JTextArea" name="areasMora">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="columns" type="int" value="20"/>
@@ -256,9 +259,13 @@
                               <EmptySpace max="-2" attributes="0"/>
                               <Component id="cajaFiltros" max="32767" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="filtroEstado" min="-2" max="-2" attributes="0"/>
+                              <Component id="textoDias" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="BtnBuscar" min="-2" pref="274" max="-2" attributes="0"/>
+                              <Component id="CajasCaarreraDias" min="-2" pref="56" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Component id="filtroEstado" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="BtnBuscar" min="-2" pref="148" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -274,6 +281,8 @@
                           <Component id="filtroEstado" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="BtnBuscar" alignment="3" min="-2" pref="36" max="-2" attributes="0"/>
                           <Component id="filtroDatos" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="CajasCaarreraDias" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="textoDias" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="jScrollPane1" pref="481" max="32767" attributes="0"/>
@@ -307,6 +316,7 @@
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="BtnBuscarMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnBuscarActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="filtroDatos">
@@ -341,6 +351,13 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JTextField" name="CajasCaarreraDias">
+            </Component>
+            <Component class="javax.swing.JLabel" name="textoDias">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Dias:"/>
+              </Properties>
+            </Component>
           </SubComponents>
         </Container>
       </SubComponents>

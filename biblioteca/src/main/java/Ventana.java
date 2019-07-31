@@ -176,6 +176,7 @@ public class Ventana extends javax.swing.JFrame {
         System.out.println("Reportes");
         ventanaReportes.setVisible(true);
         this.setVisible(false);
+        
     }//GEN-LAST:event_BtnReportesActionPerformed
 
     private void BtnPrestamosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPrestamosActionPerformed

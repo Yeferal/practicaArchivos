@@ -1,4 +1,7 @@
 
+import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
@@ -19,11 +22,14 @@ public class VentanaReportes extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.ventana = ventana;
+        modelo1.addColumn("Prestamos");
+        CajasCaarreraDias.setVisible(false);
+        textoDias.setVisible(false);
         
     }
 
     public void agregarFilaTabla(String nombre){
-        String [] elementos = new String[4];
+        String [] elementos = new String[1];
         elementos[0]=nombre;
         modelo1.addRow(elementos);
         tablapor.setModel(modelo1);
@@ -41,10 +47,10 @@ public class VentanaReportes extends javax.swing.JFrame {
         subVentanaReport = new javax.swing.JTabbedPane();
         panelHOY = new javax.swing.JPanel();
         scrollHOy = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        areaHOY = new javax.swing.JTextArea();
         panelMora = new javax.swing.JPanel();
         scrollMOra = new javax.swing.JScrollPane();
-        jTextArea3 = new javax.swing.JTextArea();
+        areasMora = new javax.swing.JTextArea();
         panelEstadistica = new javax.swing.JPanel();
         dias = new javax.swing.JLabel();
         cajaDias = new javax.swing.JTextField();
@@ -58,6 +64,8 @@ public class VentanaReportes extends javax.swing.JFrame {
         filtroDatos = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
         tablapor = new javax.swing.JTable();
+        CajasCaarreraDias = new javax.swing.JTextField();
+        textoDias = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Reportes");
@@ -70,10 +78,16 @@ public class VentanaReportes extends javax.swing.JFrame {
             }
         });
 
-        jTextArea2.setEditable(false);
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        scrollHOy.setViewportView(jTextArea2);
+        subVentanaReport.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                subVentanaReportMouseClicked(evt);
+            }
+        });
+
+        areaHOY.setEditable(false);
+        areaHOY.setColumns(20);
+        areaHOY.setRows(5);
+        scrollHOy.setViewportView(areaHOY);
 
         javax.swing.GroupLayout panelHOYLayout = new javax.swing.GroupLayout(panelHOY);
         panelHOY.setLayout(panelHOYLayout);
@@ -94,10 +108,10 @@ public class VentanaReportes extends javax.swing.JFrame {
 
         subVentanaReport.addTab("Hoy", panelHOY);
 
-        jTextArea3.setEditable(false);
-        jTextArea3.setColumns(20);
-        jTextArea3.setRows(5);
-        scrollMOra.setViewportView(jTextArea3);
+        areasMora.setEditable(false);
+        areasMora.setColumns(20);
+        areasMora.setRows(5);
+        scrollMOra.setViewportView(areasMora);
 
         javax.swing.GroupLayout panelMoraLayout = new javax.swing.GroupLayout(panelMora);
         panelMora.setLayout(panelMoraLayout);
@@ -172,6 +186,11 @@ public class VentanaReportes extends javax.swing.JFrame {
                 BtnBuscarMouseClicked(evt);
             }
         });
+        BtnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBuscarActionPerformed(evt);
+            }
+        });
 
         filtroDatos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Carnet", "Carrera" }));
         filtroDatos.addActionListener(new java.awt.event.ActionListener() {
@@ -190,6 +209,8 @@ public class VentanaReportes extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tablapor);
 
+        textoDias.setText("Dias:");
+
         javax.swing.GroupLayout panelEstCarLayout = new javax.swing.GroupLayout(panelEstCar);
         panelEstCar.setLayout(panelEstCarLayout);
         panelEstCarLayout.setHorizontalGroup(
@@ -203,9 +224,13 @@ public class VentanaReportes extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cajaFiltros)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(filtroEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textoDias)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 274, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(CajasCaarreraDias, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(filtroEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         panelEstCarLayout.setVerticalGroup(
@@ -216,7 +241,9 @@ public class VentanaReportes extends javax.swing.JFrame {
                     .addComponent(cajaFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(filtroEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BtnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(filtroDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(filtroDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(CajasCaarreraDias, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(textoDias))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 481, Short.MAX_VALUE)
                 .addContainerGap())
@@ -258,22 +285,70 @@ public class VentanaReportes extends javax.swing.JFrame {
 
     private void filtroEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroEstadoActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_filtroEstadoActionPerformed
 
 
     private void BtnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnBuscarMouseClicked
-
+        if(filtroEstado.getSelectedItem().toString().equals("Todos") && filtroDatos.getSelectedItem().toString().equals("Carnet")){
+            carnetTodos(Integer.parseInt(cajaFiltros.getText()));
+            System.out.println("Si entro");
+        }else if(filtroEstado.getSelectedItem().toString().equals("Actual") && filtroDatos.getSelectedItem().toString().equals("Carnet")){
+            try {
+                carnetActual(Integer.parseInt(cajaFiltros.getText()));
+            } catch (ParseException ex) {
+                System.out.println("No es un carnet");
+            }
+        }else if(filtroDatos.getSelectedItem().toString().equals("Carrera")){
+            try {
+                carreraDias(Integer.parseInt(cajaFiltros.getText()), Integer.parseInt(CajasCaarreraDias.getText()));
+            } catch (ParseException ex) {
+                Logger.getLogger(VentanaReportes.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
         
     }//GEN-LAST:event_BtnBuscarMouseClicked
 
     private void filtroDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroDatosActionPerformed
         // TODO add your handling code here:
+        if(filtroDatos.getSelectedItem().toString().equals("Carrera")){
+            CajasCaarreraDias.setVisible(true);
+            textoDias.setVisible(true);
+            filtroEstado.setVisible(false);
+        }else{
+            CajasCaarreraDias.setVisible(false);
+            textoDias.setVisible(false);
+            filtroEstado.setVisible(true);
+        }
+        
     }//GEN-LAST:event_filtroDatosActionPerformed
+
+    private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed
+        // TODO add your handling code here:
+        if((filtroEstado.getSelectedItem().toString()).equals("Todos") && (filtroDatos.getSelectedItem().toString()).equals("Carnet")){
+            carnetTodos(Integer.parseInt(cajaFiltros.getText()));
+        }
+    }//GEN-LAST:event_BtnBuscarActionPerformed
+
+    private void subVentanaReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_subVentanaReportMouseClicked
+        areasMora.removeAll();
+        areaHOY.removeAll();
+        try {
+            // TODO add your handling code here:
+            mora();
+            hoy();
+        } catch (ParseException ex) {
+            Logger.getLogger(VentanaReportes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_subVentanaReportMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBuscar;
     private javax.swing.JButton BtnBuscardias;
+    private javax.swing.JTextField CajasCaarreraDias;
+    private javax.swing.JTextArea areaHOY;
+    private javax.swing.JTextArea areasMora;
     private javax.swing.JTextField cajaDias;
     private javax.swing.JTextField cajaFiltros;
     private javax.swing.JLabel dias;
@@ -281,8 +356,6 @@ public class VentanaReportes extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> filtroEstado;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
-    private javax.swing.JTextArea jTextArea3;
     private javax.swing.JPanel panelEstCar;
     private javax.swing.JPanel panelEstadistica;
     private javax.swing.JPanel panelHOY;
@@ -293,20 +366,22 @@ public class VentanaReportes extends javax.swing.JFrame {
     private javax.swing.JScrollPane scrollMOra;
     private javax.swing.JTabbedPane subVentanaReport;
     private javax.swing.JTable tablapor;
+    private javax.swing.JLabel textoDias;
     // End of variables declaration//GEN-END:variables
 
 public void carnetTodos(int carnet){
     ventana.tx.datos.register=ventana.arregloPrestamos();
+    ventana.tx.datos.libros=ventana.arregloLibros();
     
     for (int i = 0; i < ventana.tx.datos.register.size(); i++) {
         if(ventana.tx.datos.register.get(i).carnetE==carnet){
             if(ventana.tx.datos.register.get(i).estado){
-                agregarFilaTabla(ventana.tx.datos.register.get(i).codigoL);
+                agregarFilaTabla(getTituloLibros(ventana.tx.datos.register.get(i).codigoL));
                 if(ventana.tx.datos.register.get(i).estado2){
-                    agregarFilaTabla(ventana.tx.datos.register.get(i).codigoL);
+                    agregarFilaTabla(getTituloLibros(ventana.tx.datos.register.get(i).codigoL));
                 }
                 if(ventana.tx.datos.register.get(i).estado3){
-                    agregarFilaTabla(ventana.tx.datos.register.get(i).codigoL);
+                    agregarFilaTabla(getTituloLibros(ventana.tx.datos.register.get(i).codigoL));
                 }
             }
         }
@@ -314,9 +389,119 @@ public void carnetTodos(int carnet){
     }
     
 }
+public String getTituloLibros(String codigo){
 
+    for (int i = 0; i < ventana.tx.datos.libros.size(); i++) {
+            if(ventana.tx.datos.libros.get(i).codigo.equals(codigo)){
+                return ventana.tx.datos.libros.get(i).titulo;     
+    
+            }
+    }
+    return " ";
+    
+}
 
+public void carnetActual(int carnet) throws ParseException{
+    ventana.tx.datos.register=ventana.arregloPrestamos();
+    ventana.tx.datos.libros=ventana.arregloLibros();
+    
+    for (int i = 0; i < ventana.tx.datos.register.size(); i++) {
+        if(ventana.tx.datos.register.get(i).carnetE==carnet){
+            if(ventana.tx.datos.register.get(i).fechaPrestamo!=null && ventana.tx.datos.register.get(i).estado && ventana.registros.diferenciaDias(ventana.tx.datos.register.get(i).fechaPrestamo)==0 ){
+                agregarFilaTabla(getTituloLibros(ventana.tx.datos.register.get(i).codigoL));
+                if(ventana.tx.datos.register.get(i).fechaPrestamo!=null && ventana.tx.datos.register.get(i).estado2 && ventana.registros.diferenciaDias(ventana.tx.datos.register.get(i).fechaPrestamo2)==0){
+                    agregarFilaTabla(getTituloLibros(ventana.tx.datos.register.get(i).codigoL));
+                }
+                if(ventana.tx.datos.register.get(i).fechaPrestamo!=null && ventana.tx.datos.register.get(i).estado3 && ventana.registros.diferenciaDias(ventana.tx.datos.register.get(i).fechaPrestamo3)==0){
+                    agregarFilaTabla(getTituloLibros(ventana.tx.datos.register.get(i).codigoL));
+                }
+            }
+        }
+        
+    }
+    
+}
+public void carreraDias(int carrera, int dias) throws ParseException{
+        ventana.tx.datos.register=ventana.arregloPrestamos();
+        ventana.tx.datos.libros=ventana.arregloLibros();
+        ventana.tx.datos.estudiantes=ventana.arregloEstudiantes();
+    for(int j = 0; j < ventana.tx.datos.estudiantes.size(); j++){
+        if(ventana.tx.datos.estudiantes.get(j).carrera==carrera){
+            
+                for (int i = 0; i < ventana.tx.datos.register.size(); i++) {
+                if(ventana.tx.datos.register.get(i).fechaPrestamo!=null && ventana.tx.datos.register.get(i).carnetE==ventana.tx.datos.estudiantes.get(j).carnet && ventana.registros.diferenciaDias(ventana.tx.datos.register.get(i).fechaPrestamo)<dias){
+                    if(ventana.tx.datos.register.get(i).estado){
+                        agregarFilaTabla(getTituloLibros(ventana.tx.datos.register.get(i).codigoL));
+                    if(ventana.tx.datos.register.get(i).fechaPrestamo!=null && ventana.tx.datos.register.get(i).estado2 && ventana.registros.diferenciaDias(ventana.tx.datos.register.get(i).fechaPrestamo2)<dias){
+                        agregarFilaTabla(getTituloLibros(ventana.tx.datos.register.get(i).codigoL));
+                    }else{}
+                    
+                    if(ventana.tx.datos.register.get(i).fechaPrestamo!=null && ventana.tx.datos.register.get(i).estado3 && ventana.registros.diferenciaDias(ventana.tx.datos.register.get(i).fechaPrestamo3)<dias){
+                        agregarFilaTabla(getTituloLibros(ventana.tx.datos.register.get(i).codigoL));
+                    }else{} 
+                }else{}
+            }else{}
+        
+           }
+        }
+    }     
+}
+    public void agregarfila(String linea){
+        areasMora.append(linea); 
+        areasMora.append(System.getProperty("line.separator"));
+        areasMora.append(System.getProperty("line.separator"));
+        //areasMora.append(System.getProperty("line.separator"));
+    }
+    
+        public void agregarfilaHOY(String linea){
+        areasMora.append(linea); 
+        areasMora.append(System.getProperty("line.separator"));
+        areasMora.append(System.getProperty("line.separator"));
+        //areasMora.append(System.getProperty("line.separator"));
+    }
 
+    public void mora() throws ParseException{
+        ventana.tx.datos.register=ventana.arregloPrestamos();
+        for (int i = 0; i < ventana.tx.datos.register.size(); i++) {
+            
+            if(ventana.tx.datos.register.get(i).fechaPrestamo!=null && ventana.registros.diferenciaDias11(ventana.tx.datos.register.get(i).fechaPrestamo, true)<0){
+                ventana.cargarLibros(ventana.tx.datos.register.get(i).codigoL);
+                agregarfila(ventana.tmpL.titulo+"\nCarnet: "+ventana.tx.datos.register.get(i).carnetE+"\nDias: "+ventana.registros.diferenciaDias11(ventana.tx.datos.register.get(i).fechaPrestamo, true));
+            }
+            if(ventana.tx.datos.register.get(i).fechaPrestamo2!=null && ventana.registros.diferenciaDias11(ventana.tx.datos.register.get(i).fechaPrestamo2, true)<0){
+                ventana.cargarLibros(ventana.tx.datos.register.get(i).codigoL);
+                agregarfila(ventana.tmpL.titulo+"\nCarnet: "+ventana.tx.datos.register.get(i).carnetE+"\nDias: "+ventana.registros.diferenciaDias11(ventana.tx.datos.register.get(i).fechaPrestamo2, true));   
+            }
+            if(ventana.tx.datos.register.get(i).fechaPrestamo3!=null && ventana.registros.diferenciaDias11(ventana.tx.datos.register.get(i).fechaPrestamo3, true)<0){
+                ventana.cargarLibros(ventana.tx.datos.register.get(i).codigoL);
+                agregarfila(ventana.tmpL.titulo+"\nCarnet: "+ventana.tx.datos.register.get(i).carnetE+"\nDias: "+ventana.registros.diferenciaDias11(ventana.tx.datos.register.get(i).fechaPrestamo3, true));
+
+        
+            }
+        }
+}
+    
+    public void hoy() throws ParseException{
+        ventana.tx.datos.register=ventana.arregloPrestamos();
+
+        for (int i = 0; i < ventana.tx.datos.register.size(); i++) {
+            
+            if(ventana.tx.datos.register.get(i).fechaPrestamo!=null && ventana.registros.diferenciaDias(ventana.tx.datos.register.get(i).fechaPrestamo)==0){
+                ventana.cargarLibros(ventana.tx.datos.register.get(i).codigoL);
+                agregarfilaHOY(ventana.tmpL.titulo+"\nCarnet: "+ventana.tx.datos.register.get(i).carnetE+"\nDias: "+ventana.registros.diferenciaDias11(ventana.tx.datos.register.get(i).fechaPrestamo, true));
+            }
+            if(ventana.tx.datos.register.get(i).fechaPrestamo2!=null && ventana.registros.diferenciaDias(ventana.tx.datos.register.get(i).fechaPrestamo2)==0){
+                ventana.cargarLibros(ventana.tx.datos.register.get(i).codigoL);
+                agregarfilaHOY(ventana.tmpL.titulo+"\nCarnet: "+ventana.tx.datos.register.get(i).carnetE+"\nDias: "+ventana.registros.diferenciaDias11(ventana.tx.datos.register.get(i).fechaPrestamo2, true));   
+            }
+            if(ventana.tx.datos.register.get(i).fechaPrestamo3!=null && ventana.registros.diferenciaDias(ventana.tx.datos.register.get(i).fechaPrestamo3)==0){
+                ventana.cargarLibros(ventana.tx.datos.register.get(i).codigoL);
+                agregarfilaHOY(ventana.tmpL.titulo+"\nCarnet: "+ventana.tx.datos.register.get(i).carnetE+"\nDias: "+ventana.registros.diferenciaDias11(ventana.tx.datos.register.get(i).fechaPrestamo3, true));
+
+        
+            }
+        }
+    }
 
 
 

@@ -37,6 +37,7 @@ public class Datos {
     public void nuevoPrestamo(String codigo, int carnet, String fecha){
         
         Prestamo tmp = new Prestamo (carnet, codigo, fecha);
+        tmp.setEstado(true);
         register.add(tmp);
         //tx.guardarPrestamos(codigo, carnet, tmp);
     }
