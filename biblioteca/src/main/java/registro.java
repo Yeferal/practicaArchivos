@@ -14,13 +14,15 @@ public class registro {
     String code;
     Prestamo presta;
     Leer_txt tex;
+    Ventana ventana;
     
     
     /*
     constructor
     */
-    public registro(Leer_txt tex){
+    public registro(Leer_txt tex, Ventana ventana){
         this.tex = tex;
+        this.ventana = ventana;
         
     }
     /*yefer
@@ -42,17 +44,20 @@ public class registro {
     }
 
     /**
-     * Verifica la existencia de libros
+     * Verifica que existan unidades del libro consultado, si no devuelve cero.
      * @param codigo 
      */ 
-    public boolean verificacionExistencias(String codigo){
+    public int LibrosEnexistencia(String codigo){
+        int existencias = 0;
         if(buscarLibro(codigo)){
-            
-            
-            return true;
-        }else{
-            return false;
+            ventana.cargarLibros(codigo);
+            existencias = ventana.tmpL.getCantidad();
         }
+        if(existencias>0){
+            return existencias;
+        }else{
+            return 0;
+        }       
     }
     
     /*Yefer
@@ -145,7 +150,7 @@ public class registro {
     
         return dias;
     }
-    
+   
     
 //    public void ordenarCarnet(){
 //        Estudiante aux;

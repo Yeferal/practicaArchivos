@@ -289,14 +289,8 @@ public class VentanaPrestamos extends javax.swing.JFrame {
         // TODO add your handling code here:
         String codigo = cajaCodigo.getText();
         int carnet = Integer.parseInt(cajaCarnet.getText());
-        ventana.cargarPrestamos(codigo, carnet);
-        
-        System.out.println(ventana.tmpP.getCarnetE());
-        System.out.println(ventana.tmpP.codigoL);
-        System.out.println(ventana.tmpP.cantidad);
-        System.out.println(ventana.tmpP.fechaPrestamo);
-        System.out.println(ventana.tmpP.fechaPrestamo2);
-        System.out.println(ventana.tmpP.fechaPrestamo3);
+        ventana.cargarEstudiantes(carnet);
+        System.out.println(ventana.tmpE.getLimite());
     }//GEN-LAST:event_BtnConfirmarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

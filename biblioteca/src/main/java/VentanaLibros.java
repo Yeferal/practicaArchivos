@@ -416,7 +416,7 @@ public class VentanaLibros extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se han llenado todos los campos, para registrar necesitas llenar todo los datos");
 
         }else{
-            if(ventana.tx.registros.buscarLibro(cajaCodigo.getText())){
+            if(ventana.registros.buscarLibro(cajaCodigo.getText())){
                 ventana.cargarLibros(cajaCodigo.getText());
                 ventana.tmpL.cantidad=ventana.tmpL.cantidad+Integer.parseInt(cajaCopias.getText());
                 JOptionPane.showMessageDialog(null, "El libro ya existe, se agrego el numero de copias nuevas");

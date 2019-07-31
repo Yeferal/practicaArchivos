@@ -17,7 +17,6 @@ public class Estudiante implements Serializable{
         this.carnet = carnet;
         this.nombre = nombre;
         this.carrera = carrera;
-        limite=0;
     }
 
     public String getNombre() {
@@ -51,6 +50,7 @@ public class Estudiante implements Serializable{
     public void setLimite(int librosPrestados){
         this.limite=librosPrestados;
     }
+    
     public boolean verificacion(){
         if(limite<3){
             return false;

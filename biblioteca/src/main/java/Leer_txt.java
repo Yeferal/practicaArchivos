@@ -11,7 +11,7 @@ public class Leer_txt {
     String ruta = "practica1.txt";
     boolean cargado;
     Datos datos = new Datos(this);
-    registro registros = new registro(this);
+    
     errores error = new errores(this);
     public Leer_txt(){
         
@@ -94,29 +94,32 @@ public class Leer_txt {
     
     public boolean vdatoslibros(String titulo, String autor, String codigo, String candidad){
 
+
         if(titulo.substring(0, 7).equals("TITULO:") && autor.substring(0, 6).equals("AUTOR:") && codigo.substring(0, 7).equals("CODIGO:") && candidad.substring(0, 9).equals("CANTIDAD:")){
-                        return true;
-        }
-        error.agregarfila("Error en ingresar libro no cumplio con todos los parametros requeridos");
+            return true;
+        }else{
+            error.agregarfila("Error en ingresar libro no cumplio con todos los parametros requeridos");
             return false;
+        }
     }
     
     public boolean vdatosEstudiante(String carnet, String nombre, String carrera){
-
         if(carnet.substring(0, 7).equals("CARNET:") && nombre.substring(0, 7).equals("NOMBRE:") && carrera.substring(0, 8).equals("CARRERA:") ){
-                        return true;
-        }
-        error.agregarfila("Error en ingresar estudiante no cumplio con todos los parametros requeridos");
+            return true;
+        }else{
+            error.agregarfila("Error en ingresar estudiante no cumplio con todos los parametros requeridos");
             return false;
+        }
     }
     
     public boolean vdatosPrestamos(String codigo, String carnet, String fecha){
 
         if(codigo.substring(0, 12).equals("CODIGOLIBRO:") && carnet.substring(0, 7).equals("CARNET:") && fecha.substring(0, 6).equals("FECHA:") ){
             return true;
-        }
-        error.agregarfila("Error en ingresar prestamo no cumplio con todos los parametros requeridos");
+        }else{
+            error.agregarfila("Error en ingresar prestamo no cumplio con todos los parametros requeridos");
             return false;
+        }
     }
     
     

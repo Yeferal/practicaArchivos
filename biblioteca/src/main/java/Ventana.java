@@ -19,6 +19,8 @@ public class Ventana extends javax.swing.JFrame {
     Estudiante tmpE;
     Prestamo tmpP;
     errores ventanaErrores = new errores(tx);
+    registro registros = new registro(tx, this);
+    
         
     public Ventana(Leer_txt tx) {
         initComponents();
@@ -199,10 +201,9 @@ public class Ventana extends javax.swing.JFrame {
         int seleccion = choose.showOpenDialog(this);
         if(seleccion == JFileChooser.APPROVE_OPTION){
             File fichero = choose.getSelectedFile();
-            System.out.println(fichero.getAbsolutePath());
             tx.leer(fichero.getAbsolutePath());
-            BuscarDoc.setEnabled(false);
             tx.datos.verificarPrestamos();
+            BuscarDoc.setEnabled(false);
         }
     }//GEN-LAST:event_BuscarDocActionPerformed
 
@@ -285,12 +286,13 @@ public class Ventana extends javax.swing.JFrame {
            ObjectInputStream cargarEstudiante = new ObjectInputStream(new FileInputStream("estudiantes/"+carnet+".bin"));
            tmpE = (Estudiante) cargarEstudiante.readObject();
            cargarEstudiante.close();
-            
+           
         }catch(Exception e){
             System.out.println("no cargo");
-        }   
+        }
     }
     
+    //Metodo que devuelve un arraylist con todos los prestamos
     public ArrayList<Prestamo> arregloPrestamos(){
         File carpetaL = new File("prestamos");
         String[] nombresAr = carpetaL.list();

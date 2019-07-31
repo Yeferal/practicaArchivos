@@ -174,6 +174,11 @@ public class VentanaReportes extends javax.swing.JFrame {
         });
 
         filtroDatos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Carnet", "Carrera" }));
+        filtroDatos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                filtroDatosActionPerformed(evt);
+            }
+        });
 
         tablapor.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -255,12 +260,16 @@ public class VentanaReportes extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_filtroEstadoActionPerformed
 
+
     private void BtnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtnBuscarMouseClicked
-        if(){
-            
-        }
+
         
     }//GEN-LAST:event_BtnBuscarMouseClicked
+
+    private void filtroDatosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_filtroDatosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_filtroDatosActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBuscar;

@@ -22,6 +22,7 @@ public class Datos {
         Estudiante es =  new Estudiante(carnet, nombre, carrera);
         es.fechaNacimiento=fecha;
         tx.guardarEstudiantes(carnet, es);
+        estudiantes.add(es);
         System.out.println(es.toString());
         
     }
@@ -67,19 +68,26 @@ public class Datos {
             }
         }
         
-        for(int z=0; z<register.size(); z++){
-            System.out.println(register.get(z).getCodigoL());
-            System.out.println(register.get(z).getCarnetE());
-            System.out.println(register.get(z).getFechaPrestamo());
-            System.out.println(register.get(z).getFechaPrestamo2());
-            System.out.println(register.get(z).getFechaPrestamo3());
-            System.out.println(register.get(z).getCantidad());
-            
-            tx.guardarPrestamos(register.get(z).getCodigoL(), register.get(z).getCarnetE(), register.get(z));
-
+        
+        for (int i=0; i<estudiantes.size(); i++) {
+            for(int z=0; z<register.size(); z++){
+                    if(estudiantes.get(i).getCarnet() == register.get(z).getCarnetE()){
+                    estudiantes.get(i).setLimite(estudiantes.get(i).getLimite() + register.get(z).getCantidad());
+                }
+            }
         }
-        register.clear();
+        
+        for (int i=0; i<register.size(); i++){
+            tx.guardarPrestamos(register.get(i).getCodigoL() ,register.get(i).getCarnetE(), register.get(i));
+        }
+        
+        for(int i=0; i<estudiantes.size(); i++){
+            tx.guardarEstudiantes(estudiantes.get(i).getCarnet(), estudiantes.get(i));
+        }
     }
+    
+    
+    
     
     /**
     public void ver(){
